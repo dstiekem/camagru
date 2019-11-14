@@ -49,6 +49,7 @@ password: <input type="password" name="password" />
 <a href="http://localhost:8080/mvc2/forgotpassword.php">forgot password?</a><br>
 <a href="http://localhost:8080/mvc2/index.php">SIGN UP</a>
 
+<<<<<<< HEAD
 </form>
 
 <div class="form-popup" id="myForm">
@@ -65,3 +66,6 @@ password: <input type="password" name="password" />
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
+=======
+</form>
+>>>>>>> 95ceda12e5d5338c72cb06ccc5a25b46b6965d8b
