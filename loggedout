@@ -1,0 +1,4 @@
+<?php
+echo "logged out!";
+//destroy user login session stuff
+?>
