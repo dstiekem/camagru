@@ -17,7 +17,7 @@ if(isset($_POST['password']) && isset($_POST['username']))
         {
             session_start();
             $_SESSION['uid'] = $fetched['userid'];
-            header('Location: ../mvc2/loggedin.php');
+            header('Location: ../mvc2/home.php');
         }
         else if(!password_verify($password, $fetched['passwd']) || $fetched['emailver'] == 0)
         {
@@ -54,9 +54,6 @@ password: <input type="password" name="password" />
 <div class="form-popup" id="myForm">
   <form action="/action_page.php" class="form-container">
     <h1>Login</h1>
-
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
 
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>

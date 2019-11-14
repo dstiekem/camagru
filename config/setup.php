@@ -9,7 +9,7 @@ include (dirname(__FILE__) . '/database.php');
 //$thing = $pdo->prepare($stmt);
 //$thing->execute();
 
-$pdo->exec("DROP DATABASE IF EXISTS camagru;");
+//$pdo->exec("DROP DATABASE IF EXISTS camagru;");
 $pdo->exec("CREATE DATABASE IF NOT EXISTS camagru;");
 
 //$pdo->exec("DROP TABLE IF EXISTS `camagru`.`users`;");
@@ -56,9 +56,9 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.stickers (
     stickey INT PRIMARY KEY,
     stickpath VARCHAR(255),
     stickname VARCHAR(255)
-):");
+);");
 
-$pdo->exec("INSERT `camagru`.stickers (stickey, stickpath, stickname) VALUES
+$pdo->exec("INSERT INTO `camagru`.stickers (stickey, stickpath, stickname) VALUES
     (1, '../stickers/1.png', 'hangerb'),
     (2, '../stickers/g1699.png', 'washmachw'),
     (4, '../stickers/g1708.png', 'washmachb'),
@@ -84,8 +84,8 @@ $pdo->exec("INSERT `camagru`.stickers (stickey, stickpath, stickname) VALUES
     (24, '../stickers/g4268.png', 'orangefistb'),
     (25, '../stickers/g4274.png', 'greenfistb'),
     (26, '../stickers/g4416.png', 'greensparkb'),
-    (27, '../stickers/g4463.png', 'orangetearw')
-)")
+    (27, '../stickers/g4463.png', 'orangetearw');
+):");
 
 // $stmt = $pdo->prepare($sql);
 ?>
