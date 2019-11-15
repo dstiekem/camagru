@@ -43,10 +43,13 @@ window.onload = function()
         var request = new XMLHttpRequest();
         request.addEventListener("load", (e) => {
             console.log(request.responseText);
+            /* if(request.responseText)
+            {
+                
+            } */
         });
         request.open("POST", "/mvc2/save.php");
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        console.log(canvasData);
         request.send("image=" + encodeURIComponent(canvasData.replace("data:image/png;base64,", "")));
     });
     
