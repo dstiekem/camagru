@@ -3,6 +3,7 @@
 ?>
 
 <canvas id="canvas"></canvas>
+<button type="submit" value="save" id="save">save</button>
 <input type="file" name="imagefile" id="hello">
 
 <script>
@@ -10,7 +11,8 @@ window.onload = function()
 {
     var canvas = document.getElementById("canvas");
     var image = document.getElementById("hello");
-
+    var save = document.getElementById("save");
+    save.getElementById("save").disabled = true;
     image.addEventListener("change", (e) => {
         var piece = null;
         for (var i=0; i < image.files.length; i++)
@@ -31,8 +33,7 @@ window.onload = function()
                 context.drawImage(doc, 0,0);
             }
             doc.src = URL.createObjectURL(file);
-            console.log(doc.src);
-            
+            console.log(doc.src); 
         }
     });
     console.log(canvas);
