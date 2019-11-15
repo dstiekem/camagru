@@ -15,10 +15,10 @@ $pdo->exec("CREATE DATABASE IF NOT EXISTS camagru;");
 //$pdo->exec("DROP TABLE IF EXISTS `camagru`.`users`;");
 $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.`users` (
     userid INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(80),
-    email VARCHAR(255),
+    username VARCHAR(80) CHARACTER SET utf8,
+    email VARCHAR(255) CHARACTER SET utf8,
     emailver BOOL,
-    vkey VARCHAR(255),  
+    vkey VARCHAR(255) CHARACTER SET utf8,  
     passwd VARCHAR(255)
 );");
 
@@ -40,7 +40,7 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.comments (
     FOREIGN KEY (`user_id`) REFERENCES users(`userid`) ON DELETE CASCADE,
     FOREIGN KEY (imageid) REFERENCES images(imageid) ON DELETE CASCADE,
     commenttime DATETIME DEFAULT CURRENT_TIMESTAMP,
-    commenttext VARCHAR(1024)
+    commenttext VARCHAR(1024) CHARACTER SET utf8
 );");
 
 //$pdo->exec("DROP TABLE IF EXISTS `camagru`.likes;");
@@ -54,8 +54,8 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.likes (
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.stickers (
     stickey INT PRIMARY KEY,
-    stickpath VARCHAR(255),
-    stickname VARCHAR(255)
+    stickpath VARCHAR(255) CHARACTER SET utf8,
+    stickname VARCHAR(255) CHARACTER SET utf8
 );");
 
 $pdo->exec("INSERT INTO `camagru`.stickers (stickey, stickpath, stickname) VALUES
