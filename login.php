@@ -45,7 +45,7 @@ else
 username: <input type="text" name="username" autocomplete="on"/>
 password: <input type="password" name="password" />
 <input type="submit" name="submit" value="LOG IN" />
-<a href="http://localhost:8080/mvc2/loggedout.php">continue browsing without logging in?</a><br>
+<a href="http://localhost:8080/mvc2/home.php">continue browsing without logging in?</a><br>
 <a href="http://localhost:8080/mvc2/forgotpassword.php">forgot password?</a><br>
 <a href="http://localhost:8080/mvc2/index.php">SIGN UP</a>
 
