@@ -1,0 +1,148 @@
+body{
+    background-color: #0f0d14;
+}
+.nav{
+    width: 100%;
+    margin: 0% 0% 0% 0%;
+    height: auto;
+    box-shadow: 0px 10px 20px #000000;
+    position: absolute;
+}
+
+.box {
+    list-style-type: none;
+    margin: 0% 30% 0% 30%;
+    padding: 10px 40px 10px 40px;
+    width: 30%;
+    text-align: center;
+    /* overflow: hidden; */
+    background-color: #110f16;
+    box-shadow: 0px 10px 20px #070509;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+    color: white;
+    position: inherit;
+    float: unset;
+}
+@media screen and (max-width: 924px) {
+    .box {
+      width: 379px;
+      margin: 0% 10% 0% 10%;
+    }
+}
+/* .box::after{
+    position: relative;
+} */
+
+/* .box + .frame{
+
+} */
+
+.box input{
+  width: 100%;
+  padding: 20px;
+  border: none;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  box-shadow: 10px 10px 20px #00000055;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none; /* remove underline from anchors */
+}
+
+.box input[type=submit] {
+    background-color:   #342d3d;
+    box-shadow: 10px 10px 20px #00000055;
+    line-height: 20px;
+    text-decoration: none;
+    font-weight: 400;
+}
+.box input[type=submit]:hover {
+    background-color:  #483f55;
+    box-shadow: 10px 10px 20px #00000055;
+    
+}
+
+a{
+    opacity: 0.75;
+    display: inline-block;
+    padding: 20px;
+    font-size: 17px;
+    text-align: center;
+    text-align: center;
+    font-family: sans-serif;
+    line-height: 20px;
+    text-decoration: none;
+    font-weight: 800;
+    color: white; 
+}
+
+a:hover{
+    opacity: 1;
+    mix-blend-mode: screen;
+}
+
+a:hover::before{
+    content: url("../mvc2/graphics/borderbefore.png");
+    width: 50%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+a:hover::after{
+    content: url("../mvc2/graphics/borderbefore.png");
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+/* #home a img:hover{
+    width: 50%;
+    height: auto;
+    box-sizing: border-box;
+} */
+
+
+
+.box #alerties{
+    visibility: hidden;
+    color: rgb(197, 95, 61);    
+}
+
+.box .noties#clicklink{
+    visibility: hidden;
+    color: #008f62ff;
+}
+
+.box .title{
+    text-decoration-style: double;
+    visibility: visible;
+    font-weight: 600;
+    color: #b5b0bd;
+    font-size: 21px;
+    padding: 12px;
+}
+
+.nav #home{
+    height: auto;
+
+}
+
+.nav #home .active{
+    display: block;
+    text-align: center;
+    background-color: #110f16;
+    width: 60%;
+}
+ul {
+    list-style-type: none;
+    margin: 0 0 0 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+.nav li{
+    float: right;
+}
+  

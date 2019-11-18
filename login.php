@@ -1,3 +1,23 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="stylesheet2.css">
+    </head>
+    <body>
+        <div class="box">
+            <p class="title">please enter your username and password</p>
+            <form action="login.php" method="post" >
+            <input type="text" name="username" placeholder="username" autocomplete="on"/>
+            <input type="password" name="password" placeholder="password"/>
+            <input type="submit" name="submit" value="LOG IN" />
+            <a href="http://localhost:8080/mvc2/index.php">SIGN UP</a>
+            <a href="http://localhost:8080/mvc2/home.php">continue browsing without logging in?</a><br>
+            <a href="http://localhost:8080/mvc2/forgotpassword.php">forgot password?</a><br>
+            </form>
+        </div>
+        <div class="frame">
+        </div>
+    </body>
+</html>
 <?php
 
 require (dirname(__FILE__) . '/functions/pswdveri.php');
@@ -35,18 +55,10 @@ if(isset($_POST['password']) && isset($_POST['username']))
         echo $e->getMessage();
     }
 }
-else
+/* else
 {
     echo "please enter username and password";
-}
+} */
 ?>
 
-<form action="login.php" method="post" >
-username: <input type="text" name="username" autocomplete="on"/>
-password: <input type="password" name="password" />
-<input type="submit" name="submit" value="LOG IN" />
-<a href="http://localhost:8080/mvc2/home.php">continue browsing without logging in?</a><br>
-<a href="http://localhost:8080/mvc2/forgotpassword.php">forgot password?</a><br>
-<a href="http://localhost:8080/mvc2/index.php">SIGN UP</a>
 
-</form>

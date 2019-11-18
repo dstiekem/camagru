@@ -1,3 +1,9 @@
+   
+    <a href=http://localhost:8080/mvc2/newimage.php>NEW IMAGE<a>;
+    <a href=http://localhost:8080/mvc2/loggedout.php>LOG OUT<a>;
+    <a href=http://localhost:8080/mvc2/settings.php>SETTINGS<a>
+    <div>
+    </div>
 <?php
 session_start();
 if(isset($_SESSION['uid']))
@@ -25,20 +31,10 @@ if(isset($_SESSION['uid']))
 
 
     //header('location: /newimage.php');
-    echo "
-    <a href=http://localhost:8080/mvc2/newimage.php>NEW IMAGE<a>;
-    <a href=http://localhost:8080/mvc2/loggedout.php>LOG OUT<a>;
-    <a href=http://localhost:8080/mvc2/settings.php>SETTINGS<a>
-    <div>
-
-    </div>
-    ";
 }
 else
 {
   echo "halooo";
   header('Location: ../login.php');
 }
-
-
 ?>

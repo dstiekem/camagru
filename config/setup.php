@@ -9,7 +9,7 @@ include (dirname(__FILE__) . '/database.php');
 //$thing = $pdo->prepare($stmt);
 //$thing->execute();
 
-//$pdo->exec("DROP DATABASE IF EXISTS camagru;");
+$pdo->exec("DROP DATABASE IF EXISTS camagru;");
 $pdo->exec("CREATE DATABASE IF NOT EXISTS camagru;");
 
 //$pdo->exec("DROP TABLE IF EXISTS `camagru`.`users`;");
@@ -18,9 +18,11 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.`users` (
     username VARCHAR(80) CHARACTER SET utf8,
     email VARCHAR(255) CHARACTER SET utf8,
     emailver BOOL,
+    notif BOOL,
     vkey VARCHAR(255) CHARACTER SET utf8,  
     passwd VARCHAR(255)
 );");
+
 
 //$pdo->exec("DROP TABLE IF EXISTS `camagru`.`images`;");
 $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.`images` (
@@ -58,15 +60,21 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.stickers (
     stickname VARCHAR(255) CHARACTER SET utf8
 );");
 
+$pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.assets (
+    asskey INT PRIMARY KEY,
+    asspath VARCHAR(255) CHARACTER SET utf8,
+    assname VARCHAR(255) CHARACTER SET utf8
+);");
+
 $pdo->exec("INSERT INTO `camagru`.stickers (stickey, stickpath, stickname) VALUES
-    (1, '../stickers/1.png', 'hangerb'),
-    (2, '../stickers/g1699.png', 'washmachw'),
-    (4, '../stickers/g1708.png', 'washmachb'),
-    (5, '../stickers/g1779.png', 'greenshirtb'),
-    (6, '../stickers/g1783.png', 'orangeshirtb'),
-    (7, '../stickers/g1754.png', 'orangesparkw'),
-    (8, '../stickers/g1899.png', 'orangeshirtw'),
-    (9, '../stickers/g1903.png', 'greenshirtw'),
+    (01, '../stickers/1.png', 'hangerb'),
+    (02, '../stickers/g1699.png', 'washmachw'),
+    (04, '../stickers/g1708.png', 'washmachb'),
+    (05, '../stickers/g1779.png', 'greenshirtb'),
+    (06, '../stickers/g1783.png', 'orangeshirtb'),
+    (07, '../stickers/g1754.png', 'orangesparkw'),
+    (08, '../stickers/g1899.png', 'orangeshirtw'),
+    (09, '../stickers/g1903.png', 'greenshirtw'),
     (10, '../stickers/g1908.png', 'coathangerw'),
     (11, '../stickers/g1955-2-8.png', 'greenpoofw'),
     (12, '../stickers/g1955-2.png', 'orangepoofw'),
@@ -87,5 +95,20 @@ $pdo->exec("INSERT INTO `camagru`.stickers (stickey, stickpath, stickname) VALUE
     (27, '../stickers/g4463.png', 'orangetearw');
 ):");
 
+$pdo->exec("INSERT INTO `camagru`.assets (asskey, asspath, assname) VALUES
+    (01, '../graphics/logo_trans.png', 'logo'),
+    (02, '../graphics/underline1.png'),
+    (03, '../graphics/underline2.png'),
+    (04, '../graphics/underline3.png'),
+    (05, '../graphics/underline4.png');
+
+):");
+
+/* $pdo->exec("INSERT INTO `camagru`.users (username, email, emailver, notif, passwd)
+ 
+    (, '../graphics/underline4.png');
+
+):");
+ */
 // $stmt = $pdo->prepare($sql);
 ?>
