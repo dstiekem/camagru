@@ -1,9 +1,5 @@
 <?php
-echo "logged out!";
-//destroy user login session stuff
-//header(location.....)
-
-
+    session_start();
+    session_destroy();
+    header('Location: ../mvc2/login.php');
 ?>
-<a href="http://localhost:8080/mvc2/login.php">LOGIN</a>
-<a href="http://localhost:8080/mvc2/index.php">SIGN UP</a>

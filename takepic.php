@@ -30,7 +30,7 @@ window.onload = function()
         /* context.GlobalCompositeOperation = "difference";
         context.drawImage(video, 0,0); */
         context.drawImage(video, 0,0);
-        save.disabled=false;
+        save.disabled=false;  
     });
     save.addEventListener("click", (ne) => {
         var canvasData = canvas.toDataURL("image/png");
