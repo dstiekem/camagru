@@ -34,8 +34,8 @@ body{
 
 .box2 {
     list-style-type: none;
-    margin: 0% 30% 0% 30%;
-    padding: 10px 40px 10px 40px;
+   /*  margin: 0% 30% 0% 30%;
+    padding: 10px 40px 10px 40px; */
     width: 30%;
     text-align: center;
     /* overflow: hidden; */
@@ -221,7 +221,7 @@ a.loggedout:hover::after{
 }
 
 .box .title{
-    text-decoration-style: double;
+    /* ext-decoration-style: double; */
     visibility: visible;
     font-weight: 600;
     color: #b5b0bd;
@@ -285,10 +285,49 @@ ul .settings{
     text-align: left;
 }
 
+.gridsettings{
+    /* padding: 0px 0px 0px 40px; */
+    display: grid;
+    width: 1000px;
+    /* margin: 40px 40px; */
+    margin: 40px auto;
+    /* grid-template-columns: minmax(550px, 550px) 50%; */
+    grid-template-columns: 400px 600px;
+    text-align: center;
+    background-color: #110f16;
+}
 /* .gallery{
     width: 100%;
     height: auto;
 } */
+
+.boxsettings{
+    list-style-type: none;
+    margin: 0% auto;
+    /* padding: 10px 40px 10px 40px; */
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    /* overflow: hidden; */
+    background-color: #110f16;
+    box-shadow: 0px 10px 20px #070509;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    position: inherit;
+    float: unset;
+    text-align: left;
+    display: grid;
+    grid-template-rows: 70px 70px 70px 70px;
+}
+.gridsettings ul{
+    padding: 0px;
+}
+
+.boxsettings #selected{
+    background-color: #17141d;
+    opacity: 1;
+}
+
 .post{
 
 }
@@ -473,6 +512,18 @@ ul .settings{
     grid-template-columns: 60px 60px;
     opacity: 0.5;
 }
+
+.thumbnails{
+    display: inline-block;
+    grid-template-columns: auto;
+    overflow: hidden;
+}
+#thumbim{
+    width: 80px; 
+    height: 80px;
+    object-fit: cover;
+    margin: 10px;
+}
 /* 
 COMMENTS */
 .grid2{
@@ -540,7 +591,7 @@ COMMENTS */
 }
 
 .commentgrid{
-    display: grid;
+    display: inline;
     grid-template-rows: auto;
     /* box-shadow: 0px 10px 20px #070509; */
     border-top-color: #070509;
@@ -560,7 +611,7 @@ COMMENTS */
 } 
 
 .commenteach{
-    margin: 4px;
+    margin: 10px 0;
 }
 
 #comment .sub{

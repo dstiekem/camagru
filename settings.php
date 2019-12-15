@@ -15,17 +15,17 @@ if(isset($_SESSION['uid']))
             require (dirname(__FILE__) . '/header.php');
         ?>
         
-        <div style="width: 100%; height: auto; margin: 0; overflow: auto;">
-            <ul class="box" class="settings" style="float: left; width: 100%;">
+        <div class="gridsettings">
+            <ul class="boxsettings" class="settings" style="float: left; width: 100%; box-shadow: none;">
                 <li><a href=http://localhost:8080/mvc2/changeusern.php>CHANGE USERNAME</a></li>
                 <li><a href=http://localhost:8080/mvc2/changeemail.php>CHANGE EMAIL</a></li>
                 <li><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
                 <li><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
             </ul>
-            <div style="width:100% margin 50%;">
-            <div class="box" style="width: 100%; float: left;">
-                <p>Change username, password and email. enable or disable notifications</p>
-            </div>
+            <div style="width:100%; padding: 1%;">
+                <div class="box" class="settings" style="width: 50%; height: 30%; margin: 10% auto; box-shadow: none; text-align: centre;">
+                    <p>Change username, password and email. enable or disable notifications</p>
+                </div>
             </div>
         </div>
         

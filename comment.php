@@ -4,6 +4,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i,700,800&display=swap" rel="stylesheet">
     <?php
         session_start();
+        if(isset($_SESSION['form_message']))
+            unset($_SESSION['form_message']);
         if(isset($_SESSION['uid']))
         {   
             $page = "comment";
@@ -11,6 +13,8 @@
             require (dirname(__FILE__) . '/config/database.php');
             include (dirname(__FILE__) . '/functions/convertdatetime.php');
             $thisuser = $_SESSION['uid'];
+            if(!isset($_POST['imageid'])
+                header('Location: ../mvc2/home.php');
             $imageid = $_POST['imageid'];
         }
         else
@@ -33,6 +37,22 @@
                 $inscomment->bindParam("userid", $user);
                 $inscomment->bindParam("commentt", $comment);
                 $inscomment->execute();
+            }
+            catch (PDOexception $e){
+                //throw $th;
+                    echo $e->getMessage();
+            }
+        }
+        if(isset($_POST["imagelikeid"]) && isset($_POST["userlikeid"]))
+        {
+            $imagelikeid = $_POST["imagelikeid"];
+            $userlikeid = $_POST["userlikeid"];
+            try{
+                $inslike = $pdo->prepare("INSERT INTO likes (imageid, `user_id`) VALUES
+                (:imageid, :userid)");
+                $inslike->bindParam("imageid", $imagelikeid);
+                $inslike->bindParam("userid", $userlikeid);
+                $inslike->execute();
             }
             catch (PDOexception $e){
                 //throw $th;
@@ -80,17 +100,20 @@
                     if($fetcheduslikes['user_id'] && $fetcheduslikes['imageid'])
                     {
                         ?>
+                        <div>
                         <img id="likes" src="http://localhost:8080/mvc2/graphics/liked.svg">
+                        </div>
                         <?php
                     }
                     else
                     {
-                        ?>
-                        <img id="likes" src="http://localhost:8080/mvc2/graphics/tolike.svg">
-                        <input type="hidden" name="imageid" value=<?php echo $fetchim['imageid'] ?>>
-                        <input type="submit" style="position: absolute; left: -9999px"/>
+                        ?> 
+                        <div id="likes">
+                            <input type="hidden" value="<?php echo $imageid?>" name="imagelikeid">
+                            <input type="hidden" value="<?php echo $thisuser?>" name="userlikeid">
+                            <input type="image" id="likes" src="http://localhost:8080/mvc2/graphics/tolike.svg" alt="Submit" />
+                        </div>
                         <?php
-
                     }
                 }
                 catch (PDOexception $e)
@@ -116,7 +139,6 @@
                         ?>
                         <img id="comments" src="http://localhost:8080/mvc2/graphics/tocomment.svg">
                         <?php
-
                     }
                 }
                 catch (PDOexception $e)

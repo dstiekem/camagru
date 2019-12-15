@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div id="stickerbackground">
-    <?php
+                <?php
                     try
                     {
                         $sticker = $pdo->prepare("SELECT stickpath, stickey FROM stickers");
@@ -49,10 +49,10 @@
                         while($fetchedst = $sticker->fetch())
                         {
                             $fetchedst['stickpath'];
-        ?>                  
+                        ?>                  
                             
                             <img id="<?php echo ($fetchedst['stickey']);?>" class="stickerdisplay" src="<?php echo ($fetchedst['stickpath']);?>">
-        <?php
+                        <?php
                         }
                     }
                     catch (PDOexception $e)
@@ -60,13 +60,43 @@
                         //throw $th;
                         echo $e->getMessage();
                     }
-    ?>
+                    ?>
                 </div>
                 
                 <div>
                     <input type="submit" value="SAVE" id="save" id="inactive" class="btn">
                 </div>
            </div>
+    </div>
+    <div class="thumbnails">
+    <?php
+    try
+    {
+    $images = $pdo->prepare("SELECT * FROM images ORDER BY imagetime DESC");
+    $images->execute();
+    
+    if(isset($_SESSION['uid']))
+    {
+      while($fetchedim = $images->fetch())
+      {
+        ?>
+        <div class="thumbnails">
+          <form action="comment.php" method="post">
+            <input type="hidden" value="<?php echo ($fetchedim['imageid'])?>" name="imageid">
+            <input type="image" id="thumbim" src="<?php echo ($fetchedim['imagepath']);?>" alt="Submit" />
+          </form>
+        </div>
+        <?php
+      }
+    }
+    }
+    catch (PDOexception $e)
+    {
+        //throw $th;
+        echo $e->getMessage();
+    }
+    //on click
+    ?>
     </div>
 <script>
 window.onload = function()
@@ -208,13 +238,14 @@ window.onload = function()
                 // overwrite original image
                 imcontext.putImageData(imageData, 0, 0);
                 save.disabled=false;
+                i = 0;
                 while (i < stickers.length)
                 {
                     var sticker = stickers[i];
                     sticker.style.pointerEvents = "auto";
                     i++;
                 }
-                save.disabled=false;
+                /* save.disabled=false; */
                 imdis.src = imagecanvas.toDataURL();
             }
             doc.src = URL.createObjectURL(piece);

@@ -16,49 +16,39 @@ if(isset($_SESSION['uid']))
     require (dirname(__FILE__) . '/functions/setnotif.php');
 ?>
 </div>
-<div style="width: 100%; position: relative;">
-    <div class="box" style="width: 100%; margin: 0;">
-        <ul class="settings">
+    <div class="gridsettings">
+        <ul class="boxsettings" class="settings" style="float: left; width: 100%; box-shadow: none;">
             <li><a href=http://localhost:8080/mvc2/changeusern.php>CHANGE USERNAME</a></li>
-            <li><a class="active" href=http://localhost:8080/mvc2/changeemail.php>CHANGE EMAIL</a></li>
+            <li><a href=http://localhost:8080/mvc2/changeemail.php>CHANGE EMAIL</a></li>
             <li><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
-            <li><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
+            <li id="selected"><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
         </ul>
-        <div style="padding:1px 16px;height:1000px;float: left;">
-            <div class="box2">
-            <div action="enablenotif.php" method="post">
-                <label class="switch">
-                <input type="checkbox" name="notif" checked id="toggle">
-                <span class="slider"></span>
-                <input type="submit" name="submit" value="SAVE" />
-                </label>
+        <div style="width:100%; padding: 1%; background-color: #17141d;">
+            <div class="box" class="settings" style="background-color: #17141d; width: 50%; height: 30%; margin: 5% auto; box-shadow: none; text-align: centre;">
+                <p>Enable or disable notification emails sent for likes and comments on your images</p>
             </div>
-            <?php
-                try{
-                    $checknotif = $pdo->prepare("SELECT notif FROM users WHERE userid = :userid");
-                    $checknotif->bindParam(':userid', $userid);
-                    $checknotif->execute();
-                    $fetchednotif = $checknotif->fetch();
-                    /* if($fetchednotif['notif'] == 0)
-                    {
-                        echo "<script>
-                            document.getElementsByName(\"notif\").checked = false;
-                        </script>";
+            <div class="box2" style="width: 10%; margin: auto; text-align: center;">
+                <div action="enablenotif.php" method="post">
+                    <label class="switch">
+                    <input type="checkbox" name="notif" checked id="toggle">
+                    <span class="slider"></span>
+                    <input type="submit" name="submit" value="SAVE" />
+                    </label>
+                </div>
+                <?php
+                    try{
+                        $checknotif = $pdo->prepare("SELECT notif FROM users WHERE userid = :userid");
+                        $checknotif->bindParam(':userid', $userid);
+                        $checknotif->execute();
+                        $fetchednotif = $checknotif->fetch();
                     }
-                    else if($fetchednotif['notif'] == 1)
-                    {
-                        echo "<script>
-                            document.getElementByName(\"notif\").checked = true;
-                        </script>";
-                    } */
-                }
-                catch (PDOexception $e) {
-                    //throw $th;
-                    echo $e->getMessage();
-                }
-            ?>
+                    catch (PDOexception $e) {
+                        //throw $th;
+                        echo $e->getMessage();
+                    }
+                ?>
             </div>
-        </div>
+        </div>        
     </div>
 </div>
 <script>
