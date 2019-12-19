@@ -470,9 +470,6 @@ ul .settings{
     background-color: #0b0910ff;
     box-shadow: 0px 10px 20px #070509;
   }
-  .btn.inactive{
-
-  }
 
   #save{
       display: inline;
@@ -620,7 +617,7 @@ COMMENTS */
     font-size: 0.8em;
 }
 
-#comment form{
+#comment .text{ /*this works so we're leaving it*/
     position: absolute;
     top: 370px;
     /* left: 600px; */
@@ -633,7 +630,7 @@ COMMENTS */
     object-fit: scroll;
 }
 
-.text input{
+#commentbox{
     width: 100%;
     padding: 20px;
     border: none;
@@ -641,6 +638,7 @@ COMMENTS */
     opacity: 0.85;
     display: inline-block;
     box-shadow: 10px 10px 20px #00000055;
+    /* background-color: yellow; */
     font-size: 1.2em;
     line-height: 20px;
     text-decoration: none; /* remove underline from anchors */
@@ -648,4 +646,8 @@ COMMENTS */
 
   input[type="submit"]#imsubmit{
       background: transparent;
+  }
+
+  #textsubmit{
+
   }

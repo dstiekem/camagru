@@ -64,7 +64,7 @@
                 </div>
                 
                 <div>
-                    <input type="submit" value="SAVE" id="save" id="inactive" class="btn">
+                    <input type="submit" value="SAVE" id="save" class="btn">
                 </div>
            </div>
     </div>
@@ -81,7 +81,7 @@
       {
         ?>
         <div class="thumbnails">
-          <form action="comment.php" method="post">
+          <form action="newimage.php" method="post">
             <input type="hidden" value="<?php echo ($fetchedim['imageid'])?>" name="imageid">
             <input type="image" id="thumbim" src="<?php echo ($fetchedim['imagepath']);?>" alt="Submit" />
           </form>

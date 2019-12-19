@@ -13,8 +13,10 @@
             require (dirname(__FILE__) . '/config/database.php');
             include (dirname(__FILE__) . '/functions/convertdatetime.php');
             $thisuser = $_SESSION['uid'];
-            if(!isset($_POST['imageid'])
+            if(!isset($_POST['imageid']))
+            {
                 header('Location: ../mvc2/home.php');
+            }
             $imageid = $_POST['imageid'];
         }
         else
@@ -48,8 +50,7 @@
             $imagelikeid = $_POST["imagelikeid"];
             $userlikeid = $_POST["userlikeid"];
             try{
-                $inslike = $pdo->prepare("INSERT INTO likes (imageid, `user_id`) VALUES
-                (:imageid, :userid)");
+                $inslike = $pdo->prepare("INSERT INTO likes (imageid, `user_id`) VALUES (:imageid, :userid)");
                 $inslike->bindParam("imageid", $imagelikeid);
                 $inslike->bindParam("userid", $userlikeid);
                 $inslike->execute();
@@ -87,7 +88,7 @@
             <div id="comment">
                 <div class="user"><?php echo $fetchus['username'];?></div>
                 
-                <p class="sub"><?php echo convdt($fetchim['imagetime'])?></p>
+                <p class="sub"><?php echo convdt($fetchim['imagetime']);?></p>
                 
                 <div class="likegrid">
                 <?php
@@ -189,11 +190,33 @@
                     ?>
                 </div>
                 <!-- <div style="position: static;"> -->
-                    <form action="comment.php" method="post" class="text">
-                        <input type="text" placeholder="comment" name="comment">
-                        <input type="hidden" name="imageid" value=<?php echo $fetchim['imageid'] ?>>
-                        <input type="submit" style="position: absolute; left: -9999px"/>
-                    </form>
+                    <div class="text">
+                        <input type="text" placeholder="comment" id="commentbox">
+                        <input type="hidden" id="imid" value=<?php echo $fetchim['imageid'] ?>>
+                        <input type="submit" style="position: absolute; left: -9999px" id="textsubmit"/>
+                        <!-- <?php //header('location:' . $_SERVER['REQUEST_URI']);?> -->
+                    </div>
+                    <script>
+                        var commentbox = document.getElementById('commentbox');
+                        var imid = document.getElementById('imid');
+                        var textsubmit = document.getElementById('textsubmit');
+                        textsubmit.addEventListener("change", (e) => {
+                            var key = e.which;
+                            console.log(key);
+                            if (e.key === 13)
+                            {
+                                console.log("anything");
+                                var request = new XMLHttpRequest();
+                                request.addEventListener('load', (e) => {
+                                    var commenttext = (request.responseText);
+                                    console.log(commenttext);
+                                });
+                            }
+                                request.open("POST", "comment.php");
+                                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                request.send("commenttext=" + commentbox + "&imageid=" + imid);
+                        });
+                    </script>
                 <!-- </div> -->
                 </div>
                 
