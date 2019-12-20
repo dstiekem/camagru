@@ -6,6 +6,7 @@
 <body>
 <div style="width: 100%; position: static;">
     <?php
+    session_start();
     $page = "changeemail";
     require (dirname(__FILE__) . '/header.php');
     require (dirname(__FILE__) . '/config/database.php');
@@ -14,7 +15,6 @@
     ?>
 </div>
 <?php
-session_start();
 if(isset($_SESSION['uid']))
 {
     if (isset($_POST['email1']) && isset($_POST['email2']))
@@ -91,7 +91,7 @@ if(isset($_SESSION['uid']))
 }
 else
 {
-    header('Location: ../mvc2/login.php');
+    header('Location: ../mvc2/loggedout.php');
 }
 ?>
 </body>

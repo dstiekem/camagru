@@ -41,6 +41,18 @@ if(isset($_SESSION['uid']))
                         $checknotif->bindParam(':userid', $userid);
                         $checknotif->execute();
                         $fetchednotif = $checknotif->fetch();
+                        if($fetchednotif['notif'] == 1)
+                        {
+                            ?>
+                            <script>document.getElementById('toggle').checked = true;</script>
+                            <?php
+                        }
+                        else if($fetchednotif['notif'] == 0)
+                        {
+                            ?>
+                            <script>document.getElementById('toggle').checked = false;</script>
+                            <?php
+                        }
                     }
                     catch (PDOexception $e) {
                         //throw $th;
@@ -59,14 +71,8 @@ if(isset($_SESSION['uid']))
             var request = new XMLHttpRequest();
             request.open("POST", "/mvc2/functions/setnotif.php");
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-           /*  request.onreadystatehange = function () {
-                if(request.readyState == 4 && request.status == 200){
-                    
-                }
-            } */
-
             request.send("notif=" + e.target.checked);
-        })
+        });
     });
 </script>
 </body>

@@ -27,24 +27,7 @@
 </head>
 <body>
     <?php
-        if(isset($_POST['comment']) && isset($_POST['imageid']))
-        {
-            $comment = htmlspecialchars($_POST['comment'], ENT_QUOTES);
-            $user = $_SESSION['uid'];
-            $imageid = $_POST['imageid'];
-            try{
-                $inscomment = $pdo->prepare("INSERT INTO comments (`imageid`, `user_id`, commenttext) VALUES
-                (:imageid, :userid, :commentt)");
-                $inscomment->bindParam("imageid", $imageid);
-                $inscomment->bindParam("userid", $user);
-                $inscomment->bindParam("commentt", $comment);
-                $inscomment->execute();
-            }
-            catch (PDOexception $e){
-                //throw $th;
-                    echo $e->getMessage();
-            }
-        }
+        
         if(isset($_POST["imagelikeid"]) && isset($_POST["userlikeid"]))
         {
             $imagelikeid = $_POST["imagelikeid"];
@@ -85,140 +68,166 @@
       <!--   PERSON WHO POSTED IMAGE -->
             <img id="picbox" src=<?php echo $fetchim['imagepath'];?>>
         </div>
-            <div id="comment">
-                <div class="user"><?php echo $fetchus['username'];?></div>
-                
-                <p class="sub"><?php echo convdt($fetchim['imagetime']);?></p>
-                
-                <div class="likegrid">
-                <?php
-                try{
-                    $querlikes = $pdo->prepare("SELECT * FROM likes WHERE `user_id` = :thisuser AND imageid = :thatimage");
-                    $querlikes->bindParam('thisuser', $thisuser);
-                    $querlikes->bindParam('thatimage', $fetchim['imageid']);
-                    $querlikes->execute();
-                    $fetcheduslikes = $querlikes->fetch();
-                    if($fetcheduslikes['user_id'] && $fetcheduslikes['imageid'])
-                    {
-                        ?>
-                        <div>
-                        <img id="likes" src="http://localhost:8080/mvc2/graphics/liked.svg">
-                        </div>
-                        <?php
-                    }
-                    else
-                    {
-                        ?> 
-                        <div id="likes">
-                            <input type="hidden" value="<?php echo $imageid?>" name="imagelikeid">
-                            <input type="hidden" value="<?php echo $thisuser?>" name="userlikeid">
-                            <input type="image" id="likes" src="http://localhost:8080/mvc2/graphics/tolike.svg" alt="Submit" />
-                        </div>
-                        <?php
-                    }
-                }
-                catch (PDOexception $e)
-                {
-                    //throw $th;
-                    echo $e->getMessage();
-                }
-                /* COMMENTS AND LIKES INDICATOR */
-                try{
-                    $quercomments = $pdo->prepare("SELECT * FROM comments WHERE `user_id` = :thisuser AND imageid = :thatimage");
-                    $quercomments->bindParam('thisuser', $thisuser);
-                    $quercomments->bindParam('thatimage', $fetchim['imageid']);
-                    $quercomments->execute();
-                    $fetcheduscomments = $quercomments->fetch();
-                    if($fetcheduscomments['user_id'] && $fetcheduscomments['imageid'])
-                    {
-                        ?>
-                        <img id="comments" src="http://localhost:8080/mvc2/graphics/commented.svg">
-                        <?php
-                    }
-                    else
-                    {
-                        ?>
-                        <img id="comments" src="http://localhost:8080/mvc2/graphics/tocomment.svg">
-                        <?php
-                    }
-                }
-                catch (PDOexception $e)
-                {
-                    //throw $th;
-                    echo $e->getMessage();
-                }
+        <div id="comment">
+        <div class="user"><?php echo $fetchus['username'];?></div>
+        
+        <p class="sub"><?php echo convdt($fetchim['imagetime']);?></p>
+        <!-- LIKES INDICATOR --> 
+        <div class="likegrid">
+        <div id="likes">
+            <input type="checkbox" name="liking" id="toggle" style="display: none;">
+            <label for="toggle"><img src="http://localhost:8080/mvc2/graphics/tolike.svg" /></label>
+            <input type="hidden" value="<?php echo $imageid?>" id="imagelikeid">
+            <input type="hidden" value="<?php echo $thisuser?>" id="userlikeid">
+        </div>
+        <?php
+        try{ 
+            $querlikes = $pdo->prepare("SELECT * FROM likes WHERE `user_id` = :thisuser AND imageid = :thatimage");
+            $querlikes->bindParam('thisuser', $thisuser);
+            $querlikes->bindParam('thatimage', $fetchim['imageid']);
+            $querlikes->execute();
+            $fetcheduslikes = $querlikes->fetch();
+            if($fetcheduslikes['user_id'] && $fetcheduslikes['imageid'])
+            {
                 ?>
-                </div>
+                <script>document.getElementById('toggle').checked = true;</script>
+                <?php
+            }
+            else
+            {
+                ?>  
+                <script>document.getElementById('toggle').checked = false;</script>
+                <?php
+            }
+        }
+        catch (PDOexception $e)
+        {
+            //throw $th;
+            echo $e->getMessage();
+        }
+        ?>
+        <script>
+        window.addEventListener('load', (e)=>{
+            var likeimid = document.getElementById('imagelikeid').value;
+            var likeuserid = document.getElementById('userlikeid').value;
+            var like = document.getElementById("toggle");
+            console.log("klippies");
+            like.addEventListener('change', (e)=>{
+                console.log(e.target.checked);
+                var request = new XMLHttpRequest();
+                request.open("POST", "/mvc2/functions/setlikes.php");
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                request.send("check=" + e.target.checked + "&imageid=" + likeimid + "&user_id=" + likeuserid);
+            });
+        });
+        </script>
+        <?php
+        /* COMMENTS INDICATOR */
+        try{
+            $quercomments = $pdo->prepare("SELECT * FROM comments WHERE `user_id` = :thisuser AND imageid = :thatimage");
+            $quercomments->bindParam('thisuser', $thisuser);
+            $quercomments->bindParam('thatimage', $fetchim['imageid']);
+            $quercomments->execute();
+            $fetcheduscomments = $quercomments->fetch();
+            if($fetcheduscomments['user_id'] && $fetcheduscomments['imageid'])
+            {
+                ?>
+                <img id="comments" src="http://localhost:8080/mvc2/graphics/commented.svg">
+                <?php
+            }
+            else
+            {
+                ?>
+                <img id="comments" src="http://localhost:8080/mvc2/graphics/tocomment.svg">
+                <?php
+            }
+        }
+        catch (PDOexception $e)
+        {
+            //throw $th;
+            echo $e->getMessage();
+        }
+        ?>
+        </div>
 
-                <!-- COMMENTS AND THE USERS WHO COMMENTED -->
-                <div style="position: relative; z-index: 8; padding: 10px 0;">
-                <div class="commentgrid">
-                    <?php
-                    try{
-                        $querallcomments = $pdo->prepare("SELECT * FROM comments WHERE imageid = :thatimage");
-                        $querallcomments->bindParam('thatimage', $fetchim['imageid']);
-                        $querallcomments->execute();
-                        //echo $fetchim['imageid'];
-                    }
-                    catch (PDOexception $e)
+        <!-- COMMENTS AND THE USERS WHO COMMENTED -->
+        <div style="position: relative; z-index: 8; padding: 10px 0;">
+        <div class="commentgrid">
+            <?php
+            try{
+                $querallcomments = $pdo->prepare("SELECT * FROM comments WHERE imageid = :thatimage");
+                $querallcomments->bindParam('thatimage', $fetchim['imageid']);
+                $querallcomments->execute();
+                //echo $fetchim['imageid'];
+            }
+            catch (PDOexception $e)
+            {
+                //throw $th;
+                echo $e->getMessage();
+            }
+            while($fetchedallcomments = $querallcomments->fetch())
+            {
+                try{
+                    $quercomus = $pdo->prepare("SELECT * FROM users WHERE userid = :use_id");
+                    $quercomus->bindParam("use_id", $fetchedallcomments['user_id']);
+                    $quercomus->execute();
+                    if($fetchthisuser = $quercomus->fetch())
                     {
-                        //throw $th;
-                        echo $e->getMessage();
-                    }
-                    while($fetchedallcomments = $querallcomments->fetch())
-                    {
-                        try{
-                            $quercomus = $pdo->prepare("SELECT * FROM users WHERE userid = :use_id");
-                            $quercomus->bindParam("use_id", $fetchedallcomments['user_id']);
-                            $quercomus->execute();
-                            if($fetchthisuser = $quercomus->fetch())
-                            {
-                            ?>
-                            <div class="commenteach">
-                                <p style="font-weight: 700; font-size: 1em; z-index:"><?php echo $fetchthisuser['username']?></p>
-                                <p><?php echo $fetchedallcomments['commenttext']?></p>
-                            </div>
-                            <?php
-                            }
-                        }
-                        catch (PDOexception $e)
-                        {
-                            //throw $th;
-                            echo $e->getMessage();
-                        }
-                    }
                     ?>
-                </div>
-                <!-- <div style="position: static;"> -->
-                    <div class="text">
-                        <input type="text" placeholder="comment" id="commentbox">
-                        <input type="hidden" id="imid" value=<?php echo $fetchim['imageid'] ?>>
-                        <input type="submit" style="position: absolute; left: -9999px" id="textsubmit"/>
-                        <!-- <?php //header('location:' . $_SERVER['REQUEST_URI']);?> -->
+                    <div class="commenteach">
+                        <p style="font-weight: 700; font-size: 1em; z-index:"><?php echo $fetchthisuser['username']?></p>
+                        <p><?php echo $fetchedallcomments['commenttext']?></p>
                     </div>
-                    <script>
-                        var commentbox = document.getElementById('commentbox');
-                        var imid = document.getElementById('imid');
-                        var textsubmit = document.getElementById('textsubmit');
-                        textsubmit.addEventListener("change", (e) => {
-                            var key = e.which;
-                            console.log(key);
-                            if (e.key === 13)
-                            {
-                                console.log("anything");
-                                var request = new XMLHttpRequest();
-                                request.addEventListener('load', (e) => {
-                                    var commenttext = (request.responseText);
-                                    console.log(commenttext);
-                                });
-                            }
-                                request.open("POST", "comment.php");
-                                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                request.send("commenttext=" + commentbox + "&imageid=" + imid);
-                        });
-                    </script>
-                <!-- </div> -->
-                </div>
+                    <?php
+                    }
+                }
+                catch (PDOexception $e)
+                {
+                    //throw $th;
+                    echo $e->getMessage();
+                }
+            }
+            ?>
+        </div>
+        
+            <div class="text">
+                <input type="text" id="commentbox" placeholder="comment">
+                <input type="hidden" id="imid" value=<?php echo $fetchim['imageid'] ?>>
+                <input type="hidden" id="thisuserid" value=<?php echo $thisuser;?>>
+                <button id="textsubmit" style="position: absolute; left: -9999px"></button>
+                <!-- <?php //header('location:' . $_SERVER['REQUEST_URI']);?> -->
+            </div>
+            <script>
+            var commentbox = document.getElementById('commentbox');
+            var imid = document.getElementById('imid').value;
+            var thisuserid = document.getElementById('thisuserid');
+            var textsubmit = document.getElementById('textsubmit');
+
+            commentbox.addEventListener("keyup", (e) => {
+                if (e.keyCode === 13)
+                {
+                    console.log("any");
+                    e.preventDefault();
+                    textsubmit.click();
+                    var request = new XMLHttpRequest();
+                    request.addEventListener("load", (e) => {
+                        var textdisplay = document.createElement('commenteach');
+                        textdisplay.innerHTML = (request.responseText);
+                        var commentgrid = document.getElementsByClassName('commentgrid');
+                        console.log(request.responseText);
+                        commentgrid.innerHTML.appendChild(textdisplay);
+                        
+                    });
+                    request.open("POST", "/mvc2/savecomment.php");
+                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    request.send("commenttext=" + commentbox.value + "&imageid=" + imid + "&uid=" + thisuserid);
+                /* } */
+                }
+            });
+                
+            </script>
+        <!-- </div> -->
+        </div>
                 
         </div>
     </div>

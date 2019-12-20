@@ -65,6 +65,7 @@
                 
                 <div>
                     <input type="submit" value="SAVE" id="save" class="btn">
+                    <input type="submit" value="DELETE" id="delete" class="btn" style="margin-top: 2px;">
                 </div>
            </div>
     </div>
@@ -81,7 +82,7 @@
       {
         ?>
         <div class="thumbnails">
-          <form action="newimage.php" method="post">
+          <form action="comment.php" method="post">
             <input type="hidden" value="<?php echo ($fetchedim['imageid'])?>" name="imageid">
             <input type="image" id="thumbim" src="<?php echo ($fetchedim['imagepath']);?>" alt="Submit" />
           </form>
@@ -113,10 +114,12 @@ window.onload = function()
     var video = document.getElementById("video");
     var display = document.getElementById("display");
     var save = document.getElementById("save");
+    var del = document.getElementById("delete");
     var imdis = document.getElementById("imagedis");
     var stickdis = document.getElementById("stickdis");
 
     save.disabled = true;
+    del.disabled = true;
     /* document.getElementsById("stickerbackground").setAttribute("id", "stickerdisabled");  */
 
     //TAKE A PICTURE
@@ -179,6 +182,7 @@ window.onload = function()
         // overwrite original image
         imcontext.putImageData(imageData, 0, 0);
         save.disabled=false;
+        del.disabled=false;
         i = 0;
         while (i < stickers.length)
         {
@@ -238,6 +242,7 @@ window.onload = function()
                 // overwrite original image
                 imcontext.putImageData(imageData, 0, 0);
                 save.disabled=false;
+                del.disabled=false;
                 i = 0;
                 while (i < stickers.length)
                 {
@@ -255,6 +260,7 @@ window.onload = function()
     save.addEventListener("click", (ne) => {
         var canvasData = imagecanvas.toDataURL("image/png");
         var stickerData = stickercanvas.toDataURL("image/png");
+        del.disabled=true;
         console.log(stickerData);
         var request = new XMLHttpRequest();
         request.addEventListener("load", (e) => {
@@ -264,6 +270,9 @@ window.onload = function()
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         request.send("image=" + encodeURIComponent(canvasData.replace("data:image/png;base64,", "")) + "&sticker=" + encodeURIComponent(stickerData.replace("data:image/png;base64,", "")));
     });
+    /* delete.addEventListener("click", (e) => {
+
+    }); */
 }
 </script>
     </body>

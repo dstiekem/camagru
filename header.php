@@ -13,9 +13,9 @@
     {
         ?>
         <script>  
-            var a = document.getElementById("newimage").href = '<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace($page.".php", "login.php", $_SERVER['REQUEST_URI']);?>';
-            var b = document.getElementById("setting").href = '<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace($page.".php", "login.php", $_SERVER['REQUEST_URI']);?>';
-            var c = document.getElementById("logout").href = '<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace($page.".php", "login.php", $_SERVER['REQUEST_URI']);?>';
+            var a = document.getElementById("newimage").href = '<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace($page.".php", "loggedout.php", $_SERVER['REQUEST_URI']);?>';
+            var b = document.getElementById("setting").href = '<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace($page.".php", "loggedout.php", $_SERVER['REQUEST_URI']);?>';
+            var c = document.getElementById("logout").href = '<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace($page.".php", "loggedout.php", $_SERVER['REQUEST_URI']);?>';
         </script>
         <?php
     }

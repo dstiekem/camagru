@@ -566,10 +566,23 @@ COMMENTS */
 #likes{
     z-index: 4;
     display: block;
+    /* background-color: #302c3a; */
 }
 
 #likes:hover{
     content: url("../mvc2/graphics/likehover.svg");
+}
+
+#like #toggle[type="checkbox" i]{
+    /*   */
+}
+     
+label::before {
+    background-image: url("http://localhost:8080/mvc2/graphics/tolike.svg");
+}
+
+:checked + label::before {
+    background-image: url("http://localhost:8080/mvc2/graphics/liked.svg");
 }
 
 #comments{

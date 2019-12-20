@@ -13,6 +13,17 @@ if(isset($_SESSION['uid']))
         <?php
             $page = "settings";
             require (dirname(__FILE__) . '/header.php');
+            try{
+                $fetchusers = $pdo->prepare("SELECT * FROM users WHERE userid = :userid");
+                $fetchusers->bindParam("userid", $_SESSION['uid']);
+                $fetchusers->execute();
+                $users = $fetchusers->fetch();
+            }
+            catch (PDOexception $e)
+            {
+                //throw $th;
+                echo $e->getMessage();
+            }
         ?>
         
         <div class="gridsettings">
@@ -24,6 +35,7 @@ if(isset($_SESSION['uid']))
             </ul>
             <div style="width:100%; padding: 1%;">
                 <div class="box" class="settings" style="width: 50%; height: 30%; margin: 10% auto; box-shadow: none; text-align: centre;">
+                    <p class="title">Hello <?php echo $users['username'];?></p>
                     <p>Change username, password and email. enable or disable notifications</p>
                 </div>
             </div>
