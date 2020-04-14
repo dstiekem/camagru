@@ -72,6 +72,7 @@ if(isset($_SESSION['uid']))
             request.open("POST", "/mvc2/functions/setnotif.php");
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             request.send("notif=" + e.target.checked);
+            console.log(e.target.checked);
         });
     });
 </script>

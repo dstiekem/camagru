@@ -59,7 +59,7 @@
                     
                     if(pswdval($passwd))
                     {
-                        if(sendemail($email, $username, $body))
+                        if(sendemailcon($email, $username, $body))
                         {
 
                             $string1 = "success";

@@ -27,8 +27,6 @@ try{
         imageid INT AUTO_INCREMENT PRIMARY KEY, 
         imagepath VARCHAR(260),
         imagetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        likes VARCHAR(260),
-        comments VARCHAR(260),
         `user_id` INT(5) ZEROFILL REFERENCES `camagru`.users(`userid`) ON DELETE CASCADE
     );");
 
@@ -123,6 +121,12 @@ try{
         (00003, 'http://localhost:8080/mvc2/images/WXtVU452Z2XOMpnt.png'),
         (00003, 'http://localhost:8080/mvc2/images/ZcccqIru0Ddq4t5X.png'),
         (00002, 'http://localhost:8080/mvc2/images/lHLRU4dMlDjswY0e.png');
+    ):");
+
+    $pdo->exec("INSERT INTO `camagru`.likes (`imageid`, `user_id`) VALUES
+    (3, 00001),
+    (4, 00002),
+    (1, 00003);
     ):");
 }
 catch (PDOexception $e) {

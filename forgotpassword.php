@@ -12,7 +12,7 @@
         {
             $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
             $username = filter_var($_POST['username'], FILTER_SANITIZE_SPECIAL_CHARS);
-            $body = "hi $username, click link to continue to password. <br>" . "http://localhost:8080/mvc2/changepassword.php?username=". $username;
+            $body = "hi $username, click link to continue to password. <br>" . "http://localhost:8080/mvc2/forgotchangepassword.php?username=". $username;
             try
             {
                 $checkemail = $pdo->prepare("SELECT username FROM users WHERE email = :email");
@@ -22,7 +22,7 @@
 
                 if(strncmp($fetched['username'], $username, strlen($username)) == 0)
                 {
-                    if(sendemail($email, $username, $body))
+                    if(sendemailfor($email, $username, $body))
                     {
                         $string1 = "success";
                         $string2 = "Thank you email has been sent to " . htmlentities($email, ENT_QUOTES) . ". Click the link to confirm address.";
@@ -38,7 +38,7 @@
                 else
                 {
                     $string1 = "error";
-                    $string2 = "username and email dont match!";
+                    $string2 = "username and email dont match the same account!";
                     modal($string1, $string2);
                 }
             }
@@ -57,12 +57,12 @@
         ?>
         <div class="box">
             <p class="title">What's your username and email?</p>
-            <div action="forgotpassword.php" method="post" >
+            <form action="forgotpassword.php" method="post" >
                 <input type="text" name="username" autocomplete="on"placeholder="username"/>
                 <input type="email" name="email" autocomplete="on" placeholder="email"/>
                 <input type="submit" name="submit" value="RESET PASSWORD" />
                 <a href="http://localhost:8080/mvc2/loggedout.php">continue browsing without logging in?</a>
-            </div>
+            </form>
         </div>
     </body>
 </html>
