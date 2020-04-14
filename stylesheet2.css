@@ -548,10 +548,12 @@ COMMENTS */
 #comment{
     display: inline;
     z-index: 1;
-    box-sizing: border-box; 
+    max-height: 600px;
+    /* box-sizing: border-box;  */
     padding: 0px 0px 0px 40px;
     font-family: 'Open Sans', sans-serif;
     text-align: left;
+    overflow: hidden;
 }
 #comment .user{
     font-size: 1.3em;
@@ -563,31 +565,36 @@ COMMENTS */
     padding: 20px 0 0 0;
 }
 
+
+
+/* MAKING CHECKBOX FROM REFERENCE */
+/* Hide the default checkbox */
 #likes{
     z-index: 4;
     display: block;
     /* background-color: #302c3a; */
 }
 
-#likes:hover{
+#likes input[type=checkbox] {
+    display: none;
+  }
+  
+#likes label:hover::before {
     content: url("../mvc2/graphics/likehover.svg");
 }
 
-#like #toggle[type="checkbox" i]{
-    /*   */
-}
-     
-label::before {
-    background-image: url("http://localhost:8080/mvc2/graphics/tolike.svg");
-}
+#likes label:before {
+    content: url("../mvc2/graphics/tolike.svg");
+  }
 
-:checked + label::before {
-    background-image: url("http://localhost:8080/mvc2/graphics/liked.svg");
-}
+  /* On check */
+#likes input:checked ~ label:before {
+    content: url("../mvc2/graphics/liked.svg");
+  }
 
-#comments{
+#comments {
     z-index: 4;
-    display: block;
+    /* display: block; */
     position: relative;
 }
 
@@ -601,15 +608,15 @@ label::before {
 }
 
 .commentgrid{
-    display: inline;
-    grid-template-rows: auto;
+    /* display: inline; */
+    /* grid-template-rows: auto; */
     /* box-shadow: 0px 10px 20px #070509; */
     border-top-color: #070509;
     color: rgb(208, 199, 226);
     font-family: 'Open Sans', sans-serif;
     font-size: 1em;
-    height: 360px;
-    overflow-y: auto;
+    max-height: 360px;
+    overflow-y: scroll;
     overflow-x: hidden;
     /* padding: 1px 300px 1px 0;
     margin: 9px 9px 0 0; */
@@ -622,6 +629,7 @@ label::before {
 
 .commenteach{
     margin: 10px 0;
+    overflow: hidden;
 }
 
 #comment .sub{
@@ -640,7 +648,7 @@ label::before {
 #comment~.text{ 
     background-color: #61596e;
     display: inherit;
-    object-fit: scroll;
+    /* object-fit: scroll; */
 }
 
 #commentbox{
@@ -649,7 +657,7 @@ label::before {
     border: none;
     margin: 5px 0;
     opacity: 0.85;
-    display: inline-block;
+    /* display: inline-block; */
     box-shadow: 10px 10px 20px #00000055;
     /* background-color: yellow; */
     font-size: 1.2em;
