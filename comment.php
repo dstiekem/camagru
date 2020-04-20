@@ -208,12 +208,20 @@
                 </div>
                 <div>
                 <script>
+                var commentfocus = document.getElementById('comments');
                 var commentbox = document.getElementById('commentbox');
                 var imid = document.getElementById('imid').value;
                 var thisuserid = document.getElementById('thisuserid').value;
                 var notifuserid = document.getElementById('notifuserid').value;
                 var notifenable = document.getElementById('notifenable').value;
                 var textsubmit = document.getElementById('textsubmit');
+
+                commentfocus.addEventListener("click", (c) =>{
+                    if(commentbox.value === '')
+                    {
+                        commentbox.focus();
+                    }
+                });
 
                 commentbox.addEventListener("keyup", (e) => {
                     if (e.keyCode === 13)

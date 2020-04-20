@@ -23,12 +23,12 @@ if(isset($_SESSION['uid']))
             <li><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
             <li id="selected"><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
         </ul>
-        <div style="width:100%; padding: 1%; background-color: #17141d;">
-            <div class="box" class="settings" style="background-color: #17141d; width: 50%; height: 30%; margin: 5% auto; box-shadow: none; text-align: centre;">
+        <div style=" padding: 1%; background-color: #17141d;">
+            <div class="box" class="settings" id="othersettings" style="background-color: #17141d;">
                 <p>Enable or disable notification emails sent for likes and comments on your images</p>
             </div>
-            <div class="box2" style="width: 10%; margin: auto; text-align: center;">
-                <div action="enablenotif.php" method="post">
+            <div class="box2" id="othersettings">
+                <div action="enablenotif.php" method="post" style="position: inherit;">
                     <label class="switch">
                     <input type="checkbox" name="notif" checked id="toggle">
                     <span class="slider"></span>

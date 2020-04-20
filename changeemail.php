@@ -77,7 +77,7 @@ if(isset($_SESSION['uid']))
             <li><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
         </ul>
         <div style="width:100%; padding: 1%; background-color: #17141d;">
-            <div class="box" class="settings" style="background-color: #17141d; width: 50%; height: 30%; box-shadow: none; text-align: centre;">
+            <div class="box" class="settings" id="othersettings" style="background-color: #17141d;">
                 <p class="title" style="padding: 10px; margin: 10px;">Enter your current email address and your new one</p>
                 <form action="changeemail.php" method="post">
                     <input type="email" name="email1" placeholder="old email"/>

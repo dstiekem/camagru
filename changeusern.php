@@ -62,9 +62,9 @@ session_start();
             <li><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
             <li><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
         </ul>
-        <div style="width:100%; padding: 1%; background-color: #17141d;">
-            <div class="box" class="settings" style="background-color: #17141d; width: 50%; height: 30%; box-shadow: none; text-align: centre;">
-                <p class="title" style="padding: 5px; margin: 5px;">Enter your current username and your new one</p>
+        <div class=settingsfield style="background-color: #17141d;">
+            <div class="box" class="settings" id="othersettings" style="background-color: #17141d;">
+                <p class="title">Enter your current username and your new one</p>
                 <form action="changeusern.php" method="post">
                     <input type="text" name="oldusername" placeholder="current username" />
                     <input type="text" name="newusername" placeholder="new username" />

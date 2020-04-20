@@ -33,8 +33,8 @@ if(isset($_SESSION['uid']))
                 <li><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
                 <li><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
             </ul>
-            <div style="width:100%; padding: 1%;">
-                <div class="box" class="settings" style="width: 50%; height: 30%; margin: 10% auto; box-shadow: none; text-align: centre;">
+            <div class=settingsfield>
+                <div class="box" class="settings" id="othersettings">
                     <p class="title">Hello <?php echo $users['username'];?></p>
                     <p>Change username, password and email. enable or disable notifications</p>
                 </div>

@@ -48,6 +48,7 @@ try{
         `user_id` INT(5) ZEROFILL,
         FOREIGN KEY(imageid) REFERENCES images(imageid) ON DELETE CASCADE,
         FOREIGN KEY(`user_id`) REFERENCES users(`userid`) ON DELETE CASCADE
+        /* likeswitch BOOL INT */
     );");
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.stickers (
@@ -128,10 +129,41 @@ try{
     (4, 00002),
     (1, 00003);
     ):");
+    ?>
+    <html>
+    <body style="background-color: #0f0d14">
+    <div style="display: grid; grid-template-columns: 30% auto 30%; margin: 300px 0 0 0; text-align: center;">
+        <div></div>
+        <div><h1 style="font-family: 'Open Sans', sans-serif; color: white;">ALL SET</h1></div>
+        <div></div>
+        <div></div>
+        <div><a style="text-decoration: none;" href='<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("config/setup.php", "index.php", $_SERVER['REQUEST_URI']);?>'><h4 style="font-family: 'Open Sans', sans-serif; color: #342d3d;">GO TO CAMAGRU</h4></a></div>
+        <div></div>
+    </div>
+    </body>
+    </html>
+    <?php
 }
 catch (PDOexception $e) {
     //throw $th;
-    echo $e->getMessage();
+    
+    ?>
+    <html>
+    <body style="background-color: #0f0d14">
+    <div style="display: grid; grid-template-columns: 30% auto 30%; margin: 300px 0 0 0; text-align: center;">
+        <div></div>
+        <div><h1 style="font-family: 'Open Sans', sans-serif; color: white;">OOPS</h1></div>
+        <div></div>
+        <div></div>
+        <div><h4 style="font-family: 'Open Sans', sans-serif; color: #342d3d;">FIX THIS:</h4></div>
+        <div></div>
+        <div></div>
+        <div><h4 style="font-family: 'Open Sans', sans-serif; color: #342d3d;"><?php echo $e->getMessage();?></h4></div>
+        <div></div>
+    </div>
+    </body>
+    </html>
+    <?php
 }
 // $stmt = $pdo->prepare($sql);
 ?>

@@ -13,8 +13,8 @@
 ?>
 <body>
     <div class="grid">
-        <div style="max-height: 480px;">
-            <div>
+        <div>
+            <div >
                 <video width="480" height="480" id="video" autoplay="true"></video>
             </div>
             <div class="btn-holder">
@@ -27,10 +27,10 @@
                 </div>
             </div>
         </div>
-        <div id="imholder">
-            <div>   
-                <!-- WHERE THE IMAGES ARE DISPLAYED  -->
+        <div style="display: grid; grid-template-columns: auto auto 20%; padding: 0 20px; text-align: center;">
+            <div>    
                 <div style="position: relative; width: 480px; height:480px" id="disparent">
+                    <!-- <canvas width="480" height="480" id="canvas"></canvas> -->
                     <img id="imagedis" width="480" height="480">
                     <img id="stickdis" style="position: absolute; top: 0; left: 0; z-index: 100;" width="480" height="480">
                 </div>
@@ -55,16 +55,13 @@
                     echo $e->getMessage();
                 }
                 ?>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div class="stickerdisplay">
-                    <input type="submit" value="CLEAR" id="clear" class="btn">
+                <div>
+                    <input type="submit" value="CLEAR" id="clear" class="btn" style="box-sizing: border-box; max-width: 110px;">
                 </div>
             </div>
-            <div class="delandsave">
+            <div>
                 <input type="submit" value="SAVE" id="save" class="btn">
-                <input type="submit" value="DELETE" id="delete" class="btn">
+                <input type="submit" value="DELETE" id="delete" class="btn" style="margin-top: 2px;">
             </div>
         </div>
     </div>
@@ -128,42 +125,41 @@
         var button = document.getElementById("button");
         var imcontext = imagecanvas.getContext("2d");
         
-        var stickercanvas = document.createElement('canvas');
-        var stickdis = document.getElementById("stickdis");
-        stickercanvas.height = 480;
-        stickercanvas.width = 480;
-        var stickcontext = stickercanvas.getContext("2d");
         var stickers = document.getElementsByClassName('stickerdisplay');
+    
         var i = 0;
         while (i < stickers.length)
         {
+            //for however many items the class stickerdisplay applies...do this
             var sticker = stickers[i];
             sticker.addEventListener("click", (e) => {
-        
+                var stickercanvas = document.createElement('canvas');
+                stickercanvas.height = 480;
+                stickercanvas.width = 480;
+                var stickcontext = stickercanvas.getContext("2d");
                 stickcontext.drawImage(e.target, 0, 0);
-                /* var z = document.getElementById("disparent");
+
+                var stickdis = document.getElementById("stickdis");
+                var z = document.getElementById("disparent");
                 var newstick = stickdis.cloneNode(true);
                 z.prepend(newstick);
                 newstick.setAttribute("id", "stickdis" + i);
-                newstick.src = stickercanvas.toDataURL("image/png"); */
-                stickdis.src = stickercanvas.toDataURL("image/png");
+                newstick.src = stickercanvas.toDataURL("image/png");
+                stickcontext.save();
                 clear.disabled = false;
-                
             });
+            
             sticker.style.pointerEvents = "none";
             i++;
-            
-        }
-        clear.addEventListener("click", (cl) => {
-                /* y = document.getElementById("stickdis" + i).style.opacity = 0.0; */
+            clear.addEventListener("click", (cl) => {
+            y = document.getElementById("stickdis" + i).style.opacity = 0.0;
 
-                /* y.removeAttribute("src"); */
-                /* old = z.removeChild(y); */
-            var clearstick = stickcontext.createImageData(480, 480);
-            stickcontext.putImageData(clearstick, 0, 0);
-            stickdis.src = stickercanvas.toDataURL("image/png");
+            /* y.removeAttribute("src"); */
+            /* old = z.removeChild(y); */
             console.log("clear clicked");
-        });
+            });
+        }
+        
         button.addEventListener("click", (e) => {
             /* canvas2.height = video.offsetHeight;
             canvas2.width = video.offsetWidth; */
@@ -279,40 +275,21 @@
             var stickerData = stickdis.src;
             var request = new XMLHttpRequest();
             request.addEventListener("load", (e) => {
-                
-                /* console.log(request.responseText); */
+                console.log(request.responseText);
                 del.disabled=false;
-                /* var result = document.getElementById('thumbnails');
+                var result = document.getElementById('thumbnails');
                 var a = document.createElement("IMG");
                 var b = document.createElement("IMG");
+                /* imagecanvas.drawImage(stickercanvas, 0, 0); */
                 a.setAttribute("src", this.responseText);
                 b.setAttribute("src", stickerData);
                 result.prepend(a);
-                result.appendChild(b); */
-                console.log(request.responseText);
-
-                var requestn =  new XMLHttpRequest();
-                requestn.addEventListener("load", (ep) =>{
-                    var data = JSON.parse(requestn.responseText);
-                    var result = document.getElementById('thumbnails');
-                    var b = document.createElement("IMG");
-                    b.setAttribute("src", data);
-                    result.prepend(b);
-                });
-                requestn.open("POST", "/mvc2/retrieve");
-                requestn.send();
-
-                /* var place = document.getElementById("thumbnails");
-                var d = document.createElement("div");
-                d.setAttribute = ("p", request.reponse);
-                place.appendChild(d);
-
+                result.appendChild(b);
                 window.addEventListener("unload", (et) => {
                     //summingc
                     console.log("TBC");
-                }); */
+                });
             });
-            request.responseType = '';
             request.open("POST", "/mvc2/save.php");
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             request.send("image=" + encodeURIComponent(canvasData.replace("data:image/png;base64,", "")) + "&sticker=" + encodeURIComponent(stickerData.replace("data:image/png;base64,", "")));
