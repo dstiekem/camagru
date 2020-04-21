@@ -40,7 +40,7 @@
             $emailverif = 0;
             $notif = 1;
             $vkey = md5(time().$username);
-            $body = "Hi " . $username . "," . " please click on the link to confirm your email address. <br>" . "http://localhost:8080/mvc2/functions/confirmuser.php?key=".$vkey."";
+            $body = "Hi " . $username . "," . " please click on the link to confirm your email address. <br>" . "http://" . $_SERVER['HTTP_HOST'] . str_replace("index.php", "functions/confirmuser.php", $_SERVER['REQUEST_URI']) . "?key=" . $vkey . "";
         
             //check if user already exists. check if email exists.
             //$checkuser = $pdo->prepare("");

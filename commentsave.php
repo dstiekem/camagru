@@ -19,5 +19,4 @@ catch (PDOexception $e){
     //throw $th;
         echo $e->getMessage();
 }
-/* header('Location: ../mvc2/comment.php'); */
 ?>

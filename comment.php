@@ -15,13 +15,13 @@
             $thisuser = $_SESSION['uid'];
             if(!isset($_POST['imageid']))
             {
-                header('Location: ../mvc2/home.php');
+                header('Location: ' . str_replace("comment.php", "home.php", $_SERVER['REQUEST_URI']));
             }
             $imageid = $_POST['imageid'];
         }
         else
         {
-            header('Location: ../mvc2/loggedout.php');
+            header('Location: ' . str_replace("comment.php", "loggedout.php", $_SERVER['REQUEST_URI']));
         }
     ?>
 </head>
@@ -116,7 +116,7 @@
                                 console.log(e.target.checked);
                                 console.log(request.readyState);                            
                             });
-                            request.open("POST", "/mvc2/savelike.php");
+                            request.open("POST", "<?php echo str_replace("comment.php", "savelike.php", $_SERVER['REQUEST_URI'])?>");
                             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                             request.send("`imageid`=" + likeimid.value + "&`user_id`=" + likeuserid + "&check=" + e.target.checked + "&notifluser=" + notifluserid + "&notif=" + notiflenable);
                             /* + "&`user_id`=" + likeuserid + "&check=" + e.target.checked */
@@ -138,13 +138,13 @@
                         if($fetcheduscomments['user_id'] && $fetcheduscomments['imageid'])
                         {
                             ?>
-                            <img id="comments" src="http://localhost:8080/mvc2/graphics/commented.svg">
+                            <img id="comments" src="<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("comment.php", "graphics/commented.svg", $_SERVER['REQUEST_URI'])?>">
                             <?php
                         }
                         else
                         {
                             ?>
-                            <img id="comments" src="http://localhost:8080/mvc2/graphics/tocomment.svg">
+                             <img id="comments" src="<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("comment.php", "graphics/tocomment.svg", $_SERVER['REQUEST_URI'])?>">
                             <?php
                         }
                         ?>
@@ -232,7 +232,7 @@
                             console.log("foks");
                             location.reload();
                         };
-                        requestc.open("POST", "/mvc2/savecomment.php");
+                        requestc.open("POST", "<?php echo str_replace("comment.php", "savecomment.php", $_SERVER['REQUEST_URI'])?>");
                         requestc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                         requestc.send("commenttext=" + commentbox.value + "&imageid=" + imid + "&uid=" + thisuserid + "&notifuser=" + notifuserid + "&notif=" + notifenable);
                     }

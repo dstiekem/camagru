@@ -57,10 +57,10 @@ session_start();
     </div>
     <div class="gridsettings">
         <ul class="boxsettings" class="settings" style="float: left; width: 100%; box-shadow: none;">
-            <li id="selected"><a href=http://localhost:8080/mvc2/changeusern.php>CHANGE USERNAME</a></li>
-            <li><a href=http://localhost:8080/mvc2/changeemail.php>CHANGE EMAIL</a></li>
-            <li><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
-            <li><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
+            <li id="selected"><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']?>>CHANGE USERNAME</a></li>
+            <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("changeusern.php", "changeemail.php", $_SERVER['REQUEST_URI'])?>>CHANGE EMAIL</a></li>
+            <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("changeusern.php", "changepassword.php", $_SERVER['REQUEST_URI'])?>>CHANGE PASSWORD</a></li>
+            <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("changeusern.php", "enablenotif.php", $_SERVER['REQUEST_URI'])?>>ENABLE NOTIFICATIONS</a></li>
         </ul>
         <div class=settingsfield style="background-color: #17141d;">
             <div class="box" class="settings" id="othersettings" style="background-color: #17141d;">
@@ -79,6 +79,6 @@ session_start();
 }
 else
 {
-    header('Location: ../mvc2/login.php');
+    header('Location: ' . str_replace("changeusern.php", "loggedout.php", $_SERVER['REQUEST_URI']));
 }
 ?>

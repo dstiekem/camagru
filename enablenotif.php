@@ -18,10 +18,10 @@ if(isset($_SESSION['uid']))
 </div>
     <div class="gridsettings">
         <ul class="boxsettings" class="settings" style="float: left; width: 100%; box-shadow: none;">
-            <li><a href=http://localhost:8080/mvc2/changeusern.php>CHANGE USERNAME</a></li>
-            <li><a href=http://localhost:8080/mvc2/changeemail.php>CHANGE EMAIL</a></li>
-            <li><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
-            <li id="selected"><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
+            <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("enablenotif.php", "changeusern.php", $_SERVER['REQUEST_URI'])?>>CHANGE USERNAME</a></li>
+            <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("enablenotif.php", "changeemail.php", $_SERVER['REQUEST_URI'])?>>CHANGE EMAIL</a></li>
+            <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("enablenotif.php", "changepassword.php", $_SERVER['REQUEST_URI'])?>>CHANGE PASSWORD</a></li>
+            <li id="selected"><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']?>>ENABLE NOTIFICATIONS</a></li>
         </ul>
         <div style=" padding: 1%; background-color: #17141d;">
             <div class="box" class="settings" id="othersettings" style="background-color: #17141d;">
@@ -69,7 +69,7 @@ if(isset($_SESSION['uid']))
         notif.addEventListener('change', (e)=>{
             console.log(e.target.checked);
             var request = new XMLHttpRequest();
-            request.open("POST", "/mvc2/functions/setnotif.php");
+            request.open("POST", "<?php echo str_replace("enablenotif.php", "functions/setnotoif.php", $_SERVER['REQUEST_URI'])?>");
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             request.send("notif=" + e.target.checked);
             console.log(e.target.checked);
@@ -81,7 +81,7 @@ if(isset($_SESSION['uid']))
 }
 else
 {
-    header('Location: ../mvc2/login.php');
+    header('Location: ' . str_replace("enablenotif.php", "loggedout.php", $_SERVER['REQUEST_URI']));
 }
 ?>
 </html>

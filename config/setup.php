@@ -24,7 +24,7 @@ try{
 
     //$pdo->exec("DROP TABLE IF EXISTS `camagru`.`images`;");
     $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.`images` (
-        imageid INT AUTO_INCREMENT PRIMARY KEY, 
+        imageid INT(5) ZEROFILL AUTO_INCREMENT PRIMARY KEY, 
         imagepath VARCHAR(260),
         imagetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `user_id` INT(5) ZEROFILL REFERENCES `camagru`.users(`userid`) ON DELETE CASCADE
@@ -33,7 +33,7 @@ try{
     //$pdo->exec("DROP TABLE IF EXISTS `camagru`.comments;");
     $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.comments (
         commentid INT  AUTO_INCREMENT PRIMARY KEY,
-        `imageid` INT,
+        `imageid` INT(5) ZEROFILL,
         `user_id` INT(5) ZEROFILL,
         FOREIGN KEY (`user_id`) REFERENCES users(`userid`) ON DELETE CASCADE,
         FOREIGN KEY (imageid) REFERENCES images(imageid) ON DELETE CASCADE,
@@ -44,7 +44,7 @@ try{
     //$pdo->exec("DROP TABLE IF EXISTS `camagru`.likes;");
     $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.likes (
         PRIMARY KEY (imageid, `user_id`),
-        `imageid` INT,
+        `imageid` INT(5) ZEROFILL,
         `user_id` INT(5) ZEROFILL,
         FOREIGN KEY(imageid) REFERENCES images(imageid) ON DELETE CASCADE,
         FOREIGN KEY(`user_id`) REFERENCES users(`userid`) ON DELETE CASCADE

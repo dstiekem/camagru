@@ -49,13 +49,6 @@ if(isset($_POST['password1']) && isset($_POST['password2']))
     }
 }
     ?>
-      
-            <!-- <ul class="boxsettings" class="settings" style="float: left; width: 100%; box-shadow: none;">
-                <li><a href=http://localhost:8080/mvc2/changeusern.php>CHANGE USERNAME</a></li>
-                <li><a href=http://localhost:8080/mvc2/changeemail.php>CHANGE EMAIL</a></li>
-                <li id="selected"><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
-                <li><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
-            </ul> -->
 <body>    
     <div class="box" class="settings" style="background-color: #17141d; width: 50%; height: 40%; box-shadow: none; text-align: centre;">
         <p class="title" style="padding: 10px; margin: 10px;">Please enter your new password in both feilds</p> 

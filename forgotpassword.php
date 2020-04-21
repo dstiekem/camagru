@@ -12,7 +12,7 @@
         {
             $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
             $username = filter_var($_POST['username'], FILTER_SANITIZE_SPECIAL_CHARS);
-            $body = "hi $username, click link to continue to password. <br>" . "http://localhost:8080/mvc2/forgotchangepassword.php?username=". $username;
+            $body = "hi $username, click link to continue to password. <br>" . "http://" . $_SERVER['HTTP_HOST'] . str_replace("forgotpassword.php", "forgotchangepassword.php?username=" . $username, $_SERVER['REQUEST_URI']);
             try
             {
                 $checkemail = $pdo->prepare("SELECT username FROM users WHERE email = :email");
@@ -61,7 +61,7 @@
                 <input type="text" name="username" autocomplete="on"placeholder="username"/>
                 <input type="email" name="email" autocomplete="on" placeholder="email"/>
                 <input type="submit" name="submit" value="RESET PASSWORD" />
-                <a href="http://localhost:8080/mvc2/loggedout.php">continue browsing without logging in?</a>
+                <a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("forgotpassword.php", "loggedout.php", $_SERVER['REQUEST_URI'])?>>continue browsing without logging in?</a>
             </form>
         </div>
     </body>

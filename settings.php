@@ -28,10 +28,10 @@ if(isset($_SESSION['uid']))
         
         <div class="gridsettings">
             <ul class="boxsettings" class="settings" style="float: left; width: 100%; box-shadow: none;">
-                <li><a href=http://localhost:8080/mvc2/changeusern.php>CHANGE USERNAME</a></li>
-                <li><a href=http://localhost:8080/mvc2/changeemail.php>CHANGE EMAIL</a></li>
-                <li><a href=http://localhost:8080/mvc2/changepassword.php>CHANGE PASSWORD</a></li>
-                <li><a href=http://localhost:8080/mvc2/enablenotif.php>ENABLE NOTIFICATIONS</a></li>
+                <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("settings.php", "changeusern.php", $_SERVER['REQUEST_URI'])?>>CHANGE USERNAME</a></li>
+                <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("settings.php", "changeemail.php", $_SERVER['REQUEST_URI'])?>>CHANGE EMAIL</a></li>
+                <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("settings.php", "changepassword.php", $_SERVER['REQUEST_URI'])?>>CHANGE PASSWORD</a></li>
+                <li><a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("settings.php", "enablenotif.php", $_SERVER['REQUEST_URI'])?>>ENABLE NOTIFICATIONS</a></li>
             </ul>
             <div class=settingsfield>
                 <div class="box" class="settings" id="othersettings">
@@ -47,6 +47,6 @@ if(isset($_SESSION['uid']))
 }
 else
 {
-    header('Location: ../mvc2/login.php');
+    header('Location: ' . str_replace("settings.php", "loggedout.php", $_SERVER['REQUEST_URI']));
 }
 ?>

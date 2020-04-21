@@ -6,7 +6,7 @@ include ('../config/database.php');
         $update = $pdo->prepare("UPDATE users set emailver = 1 WHERE  vkey = :vkey");
         $update->bindParam(':vkey', $key);
         $update = $update->execute();
-        header('Location: ../login.php');
+        header('Location: ' . str_replace("functions/confirmuser.php", "login.php", $_SERVER['REQUEST_URI']));
     }
     catch (PDOexception $e) {
         //throw $th;

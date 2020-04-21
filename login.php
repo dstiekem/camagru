@@ -9,7 +9,6 @@
     $page = "login";
     require (dirname(__FILE__) . '/header.php');
     
-        require (dirname(__FILE__) . '/functions/pswdveri.php');
         require (dirname(__FILE__) . '/functions/userexists.php');
         require (dirname(__FILE__) . '/config/database.php');
         require (dirname(__FILE__) . '/functions/modal.php');
@@ -29,7 +28,7 @@
                 {
                     session_start();
                     $_SESSION['uid'] = $fetched['userid'];
-                    header('Location: ../mvc2/home.php');
+                    header('Location: ' . str_replace("login.php", "home.php", $_SERVER['REQUEST_URI']));
                 }
                 else if(!password_verify($password, $fetched['passwd']) || $fetched['emailver'] == 0)
                 {

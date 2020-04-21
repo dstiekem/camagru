@@ -1,7 +1,7 @@
    
-    <a href=http://localhost:8080/mvc2/newimage.php>NEW IMAGE<a>;
-    <a href=http://localhost:8080/mvc2/loggedout.php>LOG OUT<a>;
-    <a href=http://localhost:8080/mvc2/settings.php>SETTINGS<a>
+    <a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("loggedin.php", "newimage.php", $_SERVER['REQUEST_URI'])?>>NEW IMAGE<a>;
+    <a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("loggedin.php", "loggedout.php", $_SERVER['REQUEST_URI'])?>>LOG OUT<a>;
+    <a href=<?php echo "http://" . $_SERVER['HTTP_HOST'] . str_replace("loggedin.php", "settings.php", $_SERVER['REQUEST_URI'])?>>SETTINGS<a>
     <div>
     </div>
 <?php
