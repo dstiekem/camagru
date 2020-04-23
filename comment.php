@@ -6,23 +6,20 @@
         session_start();
         if(isset($_SESSION['form_message']))
             unset($_SESSION['form_message']);
-        if(isset($_SESSION['uid']))
+        if(!isset($_SESSION['uid']))
         {   
-            $page = "comment";
-            require (dirname(__FILE__) . '/header.php');
-            require (dirname(__FILE__) . '/config/database.php');
-            include (dirname(__FILE__) . '/functions/convertdatetime.php'); 
-            $thisuser = $_SESSION['uid'];
-            if(!isset($_POST['imageid']))
-            {
-                header('Location: ' . str_replace("comment.php", "home.php", $_SERVER['REQUEST_URI']));
-            }
-            $imageid = $_POST['imageid'];
-        }
-        else
-        {
             header('Location: ' . str_replace("comment.php", "loggedout.php", $_SERVER['REQUEST_URI']));
         }
+        $page = "comment";
+        require (dirname(__FILE__) . '/header.php');
+        require (dirname(__FILE__) . '/config/database.php');
+        include (dirname(__FILE__) . '/functions/convertdatetime.php'); 
+        $thisuser = $_SESSION['uid'];
+        if(!isset($_POST['imageid']))
+        {
+            header('Location: ' . str_replace("comment.php", "home.php", $_SERVER['REQUEST_URI']));
+        }
+        $imageid = $_POST['imageid'];
     ?>
 </head>
 <body>
@@ -198,7 +195,9 @@
                     }
                 ?>
                 </div>
+                
                 <div class="text">
+                <!-- ACTUAL COMMENTING BOX -->
                     <input type="text" id="commentbox" placeholder="comment">
                     <input type="hidden" id="imid" value=<?php echo $fetchim['imageid']?>>
                     <input type="hidden" id="thisuserid" value=<?php echo $thisuser;?>>

@@ -1,7 +1,8 @@
 <?php
+session_start();
 if(!isset($_SESSION['uid']))
 {
-    session_start();
+    header('Location: ' . str_replace("savelike.php", "loggedout.php", $_SERVER['REQUEST_URI']));
 }
 $thisuser = $_SESSION['uid'];
 echo $thisuser;
@@ -42,7 +43,6 @@ if(isset($_POST["`imageid`"]) && isset($_POST["`user_id`"]) && isset($_POST["`us
 
         }
         catch (PDOexception $e){
-            //throw $th;
                 echo $e->getMessage();
         }
     }
@@ -50,15 +50,13 @@ if(isset($_POST["`imageid`"]) && isset($_POST["`user_id`"]) && isset($_POST["`us
     {
         try{
             $dellike = $pdo->prepare("DELETE FROM `likes` WHERE `likes`.`imageid` = :imageid AND `likes`.`user_id` = :userid");
-            /* UPDATE users SET notif = $boool WHERE userid = :userid */
             $dellike->bindParam("imageid", $imagelikeid);
             $dellike->bindParam("userid", $userlikeid);
             $dellike->execute();
         }
         catch (PDOexception $e){
-            //throw $th;
-                echo $e->getMessage();
-                echo "it dunnaework";
+            echo $e->getMessage();
+            echo "it dunnaework";
         }
     }
 }

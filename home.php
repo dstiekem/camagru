@@ -10,9 +10,9 @@ require (dirname(__FILE__) . '/functions/randomiseimages.php');
   <body>
     <div>
 <?php
-    session_start();
-    $page = "home";
-    require (dirname(__FILE__) . '/header.php');
+session_start();
+$page = "home";
+require (dirname(__FILE__) . '/header.php');
 ?>
   <div id="list">
   </div>  
@@ -33,19 +33,5 @@ require (dirname(__FILE__) . '/functions/randomiseimages.php');
     }
      document.getElementById("nextpage").addEventListener("click", getpage);
      getpage();
-    // var thing = {
-    //   key: 1,
-    //   jsom: "sdf",
-    //   object: {
-    //     object: {
-    //       value: "HI";
-    //     }
-    //   }
-    //   func: (val) => {
-    //     console.log(val);
-    //   }
-    // }
-    // thing.x = "a";
-    // thing.func(thing.object.object.value);
   </script>
 </html>

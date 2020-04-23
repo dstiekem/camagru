@@ -1,5 +1,8 @@
 <?php
 include (dirname(__FILE__) . '/database.php');
+session_start();
+session_destroy();
+
 
 //$file = fopen("./database.sql", "r");
 

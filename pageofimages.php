@@ -2,6 +2,10 @@
 
 <?php
 session_start();
+if(!isset($_GET["page"]))
+{
+    header('Location: ' . str_replace("pageofimages.php", "home.php", $_SERVER['REQUEST_URI']));
+}
 require (dirname(__FILE__) . '/config/database.php');
   try
   {
@@ -42,17 +46,6 @@ require (dirname(__FILE__) . '/config/database.php');
   }
   catch (PDOexception $e)
   {
-    //throw $th;
     echo $e->getMessage();
   }
-  //on click
-
-
-    //header('location: /newimage.php');
-
-  /* else
-  {
-    echo "halooo";
-    header('Location: ../login.php');
-  } */
 ?>

@@ -1,7 +1,8 @@
 <?php
+session_start();
 if(!isset($_SESSION['uid']))
 {
-    session_start();
+    header('Location: ' . str_replace("savecomment.php", "loggedout.php", $_SERVER['REQUEST_URI']));
 }
 require (dirname(__FILE__) . '/config/database.php');
 require (dirname(__FILE__) . '/functions/email.php');
@@ -19,7 +20,6 @@ if(isset($_POST['commenttext']) && isset($_POST['imageid']) && isset($_POST['not
         $inscomment->bindParam("userid", $user);
         $inscomment->bindParam("commentt", $comment);
         $inscomment->execute();
-        /* header('Location: comment.php'); */
         if($notif === "1")
         {
             $cbody = "Hi user, someone has commented on one of your posts. YAY!";

@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(!isset($_POST['imageid']))
+{
+    header('Location: ' . str_replace("image.php", "home.php", $_SERVER['REQUEST_URI']));
+}
     require (dirname(__FILE__) . '/config/database.php');
     $imageid = $_POST['imageid'];
     try{

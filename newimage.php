@@ -4,12 +4,19 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i,800&display=swap" rel="stylesheet">
   </head>
 <?php
-    session_start();
-if(isset($_SESSION['uid'])){
+session_start();
+if(!isset($_SESSION['uid']))
+{
+    
+    header('Location: ' . str_replace("newimage.php", "loggedout.php", $_SERVER['REQUEST_URI']));
+}
+else
+{
+    
         $page = "newimage";
         require (dirname(__FILE__) . '/header.php');
         require (dirname(__FILE__) . '/config/database.php');
-        require (dirname(__FILE__) . '/functions/fetchuid.php');
+        /* require (dirname(__FILE__) . '/functions/fetchuid.php'); */
         require (dirname(__FILE__) . '/functions/modal.php');
     ?>
     <body>
@@ -59,7 +66,7 @@ if(isset($_SESSION['uid'])){
                     <div></div>
                     <div></div>
                     <div></div>
-                    <div class="stickerdisplay">
+                    <div class="stickerdisplayn">
                         <input type="submit" value="CLEAR" id="clear" class="btn">
                     </div>
                 </div>
@@ -69,6 +76,7 @@ if(isset($_SESSION['uid'])){
                 </div>
             </div>
         </div>
+        <div id="newthumbnails"></div>
         <div id="thumbnails">
         <?php
         //THUMBNAILS THAT GO TO COMMENTS
@@ -96,7 +104,6 @@ if(isset($_SESSION['uid'])){
         {
             echo $e->getMessage();
         }
-        //on click
         ?>
         </div>
         <script>
@@ -111,13 +118,19 @@ if(isset($_SESSION['uid'])){
             var del = document.getElementById("delete");
             var clear = document.getElementById("clear");
             var imdis = document.getElementById("imagedis");
-            /* var stickdis = document.getElementById("stickdis"); */
-
             save.disabled = true;
             del.disabled = true;
             clear.disabled = true;
 
-            //TAKE A PICTURE
+            //NEW THUMNAILS TO DISPLAY and DELETE
+            var thumb = document.getElementsByClassName('thumbnailsinner');
+            var thumbparent = document.getElementById('thumbnails');
+            /* var newthumbparent = thumbparent.cloneNode(false);
+            newthumbparent.id = "newthumbnails";  */
+            var newthumbparent = document.getElementById('newthumbnails');
+     
+
+            //SETUP CAMERA AND STICKERS
             if(navigator.mediaDevices.getUserMedia)
             {
                 navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
@@ -140,36 +153,26 @@ if(isset($_SESSION['uid'])){
             {
                 var sticker = stickers[i];
                 sticker.addEventListener("click", (e) => {
-            
+                    /* var putstick = imcontext.getImageData(0, 0, 480, 480); */
+                    /* var sticktodraw = sticker.getAttributeNode("src"); */
+                    /*  */
                     stickcontext.drawImage(e.target, 0, 0);
-                    /* var z = document.getElementById("disparent");
-                    var newstick = stickdis.cloneNode(true);
-                    z.prepend(newstick);
-                    newstick.setAttribute("id", "stickdis" + i);
-                    newstick.src = stickercanvas.toDataURL("image/png"); */
                     stickdis.src = stickercanvas.toDataURL("image/png");
-                    
-                    clear.disabled = false;
-                    
+                    clear.disabled = false;    
                 });
                 sticker.style.pointerEvents = "none";
-                i++;
-                
+                i++;         
             }
             clear.addEventListener("click", (cl) => {
-                    /* y = document.getElementById("stickdis" + i).style.opacity = 0.0; */
-
-                    /* y.removeAttribute("src"); */
-                    /* old = z.removeChild(y); */
                 var clearstick = stickcontext.createImageData(480, 480);
                 stickcontext.putImageData(clearstick, 0, 0);
+                /* stickcontext.drawImage(cl.target, 0, 0); */
                 stickdis.src = stickercanvas.toDataURL("image/png");
-            
                 console.log("clear clicked");
             });
+
+            //TAKE A PICTURE
             button.addEventListener("click", (e) => {
-                /* canvas2.height = video.offsetHeight;
-                canvas2.width = video.offsetWidth; */
                 var xoff, yoff, size;
                 size = video.offsetWidth > video.offsetHeight ? video.offsetHeight : video.offsetWidth;
                 imagecanvas.height = size;
@@ -185,22 +188,28 @@ if(isset($_SESSION['uid'])){
                     yoff = -0.25 * video.offsetHeight;
                 }    
                 imcontext.drawImage(video, yoff, xoff);
-
                 var imageData = imcontext.getImageData(0, 0, video.width, video.height);
                 //convert image to data in order to grayscale
                 var data = imageData.data;
-            
-                for(i = 0; i < data.length; i += 4) {
+
+                for(i = 0; i < data.length; i += 4) 
+                {
                 var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+
                 // red
                 data[i] = brightness;
+
                 // green
                 data[i + 1] = brightness;
+
                 // blue
                 data[i + 2] = brightness;
+
                 }
+
                 // overwrite original image
                 imcontext.putImageData(imageData, 0, 0);
+
                 save.disabled=false;
                 
                 i = 0;
@@ -210,8 +219,7 @@ if(isset($_SESSION['uid'])){
                     sticker.style.pointerEvents = "auto";
                     i++;
                 }
-                imdis.src = imagecanvas.toDataURL();
-                
+                imdis.src = imagecanvas.toDataURL("image/png");   
             });
 
             //UPLOAD AN IMAGE
@@ -229,6 +237,7 @@ if(isset($_SESSION['uid'])){
                 {
                     var doc = new Image();
                     doc.onload = () => {
+
                         var xoff, yoff, size;
                         size = doc.width > doc.height ? doc.height : doc.width;
                         imagecanvas.height = size;
@@ -244,18 +253,15 @@ if(isset($_SESSION['uid'])){
                             yoff = -0.25 * doc.height;
                         }    
                         imcontext.drawImage(doc, xoff,yoff);
-                        //display.src = canvas.toDataURL(piece);
+                       /*  display.src = canvas.toDataURL(piece);  */
 
                         var imageData = imcontext.getImageData(0, 0, doc.width, doc.height);
                         var data = imageData.data;
                     
                         for(i = 0; i < data.length; i += 4) {
                         var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
-                        // red
                         data[i] = brightness;
-                        // green
                         data[i + 1] = brightness;
-                        // blue
                         data[i + 2] = brightness;
                         }
                         // overwrite original image
@@ -269,11 +275,11 @@ if(isset($_SESSION['uid'])){
                             sticker.style.pointerEvents = "auto";
                             i++;
                         }
-                        /* save.disabled=false; */
-                        imdis.src = imagecanvas.toDataURL();
+                        imdis.src = imagecanvas.toDataURL("image/png");
+
                     }
                     doc.src = URL.createObjectURL(piece);
-                    console.log(doc.src);
+                    console.log(doc.src); 
                     
                 }
             });
@@ -283,45 +289,34 @@ if(isset($_SESSION['uid'])){
                 {
                     var stickerData = stickdis.src;
                 }
-        
                 var request = new XMLHttpRequest();
                 request.addEventListener("load", (e) => {
                     
-                    /* console.log(request.responseText); */
-                    del.disabled=false;
                     console.log(request.responseText);
                     var justsavedpath = "<?php echo "http://" . $_SERVER['HTTP_HOST'] ?>" + request.responseText.substr(7, 33);
                     console.log(justsavedpath);
                     var justsavedid = request.responseText.substr(0, 5);
-                    /* console.log(justsavedpath);
-                    console.log(justsavedid); */
-                    var thumb = document.getElementsByClassName('thumbnailsinner');
+
                     var newthumb = thumb[0].cloneNode(true);
-                    
-                    var thumbparent = document.getElementById('thumbnails');
-                    thumbparent.prepend(newthumb);
-                    /* var newthumbv = newthumb.getAttributeNode('value');
-                    var newthumbs = newthumb.getAttributeNode('src'); */
+                    document.body.insertBefore(newthumbparent, thumbparent);
+                    newthumbparent.prepend(newthumb);
                     var newthumbv = newthumb.querySelector('#thumbid');
                     var newthumbs = newthumb.querySelector('#thumbim');
+                    newthumb.id = "newthumbid"; 
+                    
                     newthumbv.setAttribute('value', justsavedid);
+                    /* newthumbv.id = "thumbidnew"; */
                     newthumbs.setAttribute('src', justsavedpath);
-
-
-                    console.log(newthumb);
-    
-                    /* var place = document.getElementById("thumbnails");
-                    var d = document.createElement("div");
-                    d.setAttribute = ("p", request.reponse);
-                    place.appendChild(d);
-
-                    window.addEventListener("unload", (et) => {
-                        //summingc
-                        console.log("TBC");
-                    }); */
+                    if(newthumbparent.hasChildNodes())
+                    {
+                        console.log("it exists");
+                        del.disabled=false;
+                    }
                 });
                 request.responseType = '';
+
                 request.open("POST", "<?php echo str_replace("newimage.php", "save.php", $_SERVER['REQUEST_URI'])?>");
+
                 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 if(stickerData)
                 {
@@ -330,34 +325,41 @@ if(isset($_SESSION['uid'])){
                 else
                 {
                     request.send("image=" + encodeURIComponent(canvasData.replace("data:image/png;base64,", "")) + "&sticker=NOT");
+
                 }
-                //needs to update in the thumbnails once sent
             });
-            
-            del.addEventListener("click", (e) => {
-                var thumb = document.getElementsByClassName('thumbnailsinner');
-                var thumbv = thumb[0].querySelector('#thumbid').value;
-                /* var thumbs = thumb[0].getElementbyId('thumbim').src; */
+            /* var thumbremove = document.getElementById("newthumbnails"); */
+            if(!newthumbparent.hasChildNodes())
+            {
+                del.disabled=true;
+                console.log("fuckyou");
+            }
+                console.log("it exists");
+                /* del.disabled=false; */
+                del.addEventListener("click", (e) => {
+                        var thumbv = thumb[0].querySelector('#thumbid').value;
+                        var thumbremove = document.getElementById("newthumbid");
+                        var request = new XMLHttpRequest();
+                        newthumbnails.removeChild(thumbremove);
+                        request.addEventListener("load", (l) => {
+                            console.log(request.responseText);
+                            if(request.responseText == "it dunnaeworkFOK")
+                            {
+                                /* document.getElementById("imholder").innerHTML = "
+                                echo modal("error", "You can't delete other peoples stuff! rude");
+                                " */
+                                console.log("no");
+                            }     
 
-
-                var request = new XMLHttpRequest();
-                request.addEventListener("load", (l) => {
-                    console.log(request.responseText);
-                    thumb[0].remove();
-                });
-                request.open("POST", "<?php echo str_replace("newimage.php", "delete.php", $_SERVER['REQUEST_URI'])?>");
-                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                request.send("imageid=" + thumbv);
-                //if something has been saved, delete it
-            }); 
+                        });
+                    request.open("POST", "<?php echo str_replace("newimage.php", "delete.php", $_SERVER['REQUEST_URI'])?>");
+                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    request.send("imageid=" + thumbv + "&usim=" + "<?php echo $fetchedim['user_id']?>" + "&usus=" + "<?php echo $_SESSION['uid']?>");
+                }); 
         }
         </script>
     </body>
-<?php
-}
-else
-{
-    header('Location: ' . str_replace("newimage.php", "loggedout.php", $_SERVER['REQUEST_URI']));
-}
-?>
+    <?php
+    }
+    ?>
 </html>

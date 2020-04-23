@@ -1,7 +1,8 @@
 <?php
+session_start();
 if(!isset($_SESSION['uid']))
 {
-    session_start();
+    header('Location: ' . str_replace("save.php", "newimage.php", $_SERVER['REQUEST_URI']));
 }
 require (dirname(__FILE__) . '/functions/randomstr.php');
 require (dirname(__FILE__) . '/config/database.php');
@@ -41,5 +42,8 @@ function composeimage($cimage, $csticker)
     }
     return($savedimpath);
 }
-composeimage($_POST["image"],  $_POST["sticker"]);
+if(isset($_POST['image']))
+{
+    composeimage($_POST["image"],  $_POST["sticker"]);
+}
 ?>

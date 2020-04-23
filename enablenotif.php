@@ -66,12 +66,13 @@ if(isset($_SESSION['uid']))
 <script>
     window.addEventListener('load', (e)=>{
         var notif = document.getElementById("toggle");
+        var check = "is";
         notif.addEventListener('change', (e)=>{
             console.log(e.target.checked);
             var request = new XMLHttpRequest();
-            request.open("POST", "<?php echo str_replace("enablenotif.php", "functions/setnotoif.php", $_SERVER['REQUEST_URI'])?>");
+            request.open("POST", "<?php echo str_replace("enablenotif.php", "functions/setnotif.php", $_SERVER['REQUEST_URI'])?>");
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.send("notif=" + e.target.checked);
+            request.send("notif=" + e.target.checked + "&iset=" + check);
             console.log(e.target.checked);
         });
     });

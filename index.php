@@ -5,13 +5,10 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i,700,800&display=swap" rel="stylesheet">
     </head>
     <body>
-        <!-- <div class="box" class="nav">
-            <button>
-        </div> -->
         <?php
             $page = "index";
             require (dirname(__FILE__) . '/header.php');
-            ?>
+        ?>
         <div class="box">
             <p class="title" id="signup">Please enter a username, password, and valid email address</p>
             <form action="index.php" method="post">
@@ -41,10 +38,7 @@
             $notif = 1;
             $vkey = md5(time().$username);
             $body = "Hi " . $username . "," . " please click on the link to confirm your email address. <br>" . "http://" . $_SERVER['HTTP_HOST'] . str_replace("index.php", "functions/confirmuser.php", $_SERVER['REQUEST_URI']) . "?key=" . $vkey . "";
-        
-            //check if user already exists. check if email exists.
-            //$checkuser = $pdo->prepare("");
-            //echo "sorry! username or email already exists!"
+  
             $checkemail = $pdo->prepare("SELECT email FROM users WHERE email = :email");
             $checkemail->bindParam(':email', $email);
             $checkemail->execute();
@@ -102,15 +96,6 @@
                 echo $e->getMessage();
             }
         }
-        /* else
-        {
-            echo "
-            <script type=\"text/javascript\">
-            document.getElementById(\"title\").style.visibility = \"visible\";
-            </script>
-            ";
-        } */
-
         ?>
     </body>
 </html>

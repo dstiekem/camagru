@@ -489,7 +489,6 @@ ul .settings{
   }
   #delete{
       display: inline;
-      margin-top: 2px;
   }
 
   #clear{
@@ -696,8 +695,17 @@ COMMENTS */
       background: transparent;
   }
 
-  #textsubmit{
+/*   #textsubmit{
 
+  } */
+  @media only screen and (max-width: 555px){
+  .navi li{
+    display: grid;
+   /*  float: unset; */
+    grid-template-rows: 60px;
+    text-align: center;
+    width: 100%;
+    }
   }
   @media only screen and (max-width: 1500px){
     #save{
@@ -731,10 +739,10 @@ COMMENTS */
         position: absolute;
       }
       .stickerdisplay{
-        width: 50px;
+/*         width: 50px; */
         padding: 5px;
         object-fit: fill;
-        height: auto;
+   /*      height: auto; */
         display: inline;
         opacity: 0.76;
     }
@@ -782,6 +790,26 @@ COMMENTS */
     }
   }
   @media only screen and (max-width: 900px){
+    .navi{
+        position: absolute;
+        z-index: 110;
+        width: 100%;
+        margin: 0% 0% 0% 0%;
+        text-align: center;
+        height: auto;
+        box-shadow: 0px 10px 20px #000000;
+        font-family: 'Open Sans', sans-serif;
+        color: white;
+        position: inherit;
+        float: unset;
+        
+    }
+    .navi li{
+        display: grid;
+        float: right;
+        grid-template-rows: 60px;
+    }
+    
     p{
         color: #403a4bff;
 
@@ -825,7 +853,7 @@ COMMENTS */
 
     .box {
         list-style-type: none;
-        margin: 0%;
+        margin: 0% auto;
         padding: 4%;
         /* width: 90%; */
         /* max-width: 100%; */
@@ -837,6 +865,23 @@ COMMENTS */
         color: white;
         position: inherit;
         float: unset;
+    }
+    .noties{
+        list-style-type: none;
+        margin: 0% auto;
+        padding: 10px 40px 10px 40px;
+        /* width: 90%;
+        max-width: 400px; */
+        text-align: center;
+        /* overflow: hidden; */
+        background-color: #110f16;
+        box-shadow: 0px 10px 20px #070509;
+        font-family: 'Open Sans', sans-serif;
+        color: white;
+        font-weight: 700; 
+        position: inherit;
+        float: unset;
+        /* display: none; */
     }
 
     .box2 {
@@ -901,7 +946,7 @@ COMMENTS */
         color: rgb(208, 199, 226);
         font-family: 'Open Sans', sans-serif;
         font-size: 1em;
-       /max-height: 1000px;
+        max-height: 1000px;
         overflow-y: scroll;
         overflow-x: hidden;
         /* padding: 1px 300px 1px 0;

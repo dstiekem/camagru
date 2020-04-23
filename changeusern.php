@@ -11,7 +11,7 @@ session_start();
         $page = "changeusern";
         require (dirname(__FILE__) . '/header.php');
         require (dirname(__FILE__) . '/config/database.php');
-        require (dirname(__FILE__) . '/functions/fetchuid.php');
+        /* require (dirname(__FILE__) . '/functions/fetchuid.php'); */
         require (dirname(__FILE__) . '/functions/modal.php');
     if(isset($_SESSION['uid']))
     {

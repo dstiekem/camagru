@@ -20,21 +20,14 @@ if(isset($_SESSION['uid']))
     {
       echo $value;
     }
-    //fecth images to use in html css stuff
   }
   catch (PDOexception $e)
   {
-    //throw $th;
     echo $e->getMessage();
   }
-  //on click
-
-
-    //header('location: /newimage.php');
 }
 else
 {
-  echo "halooo";
-  header('Location: ../login.php');
+  header('Location: ' . str_replace("changeemail.php", "loggedout.php", $_SERVER['REQUEST_URI']));
 }
 ?>

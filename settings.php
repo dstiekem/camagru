@@ -21,7 +21,6 @@ if(isset($_SESSION['uid']))
             }
             catch (PDOexception $e)
             {
-                //throw $th;
                 echo $e->getMessage();
             }
         ?>

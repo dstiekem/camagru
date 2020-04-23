@@ -5,21 +5,31 @@
     </header>
     <body>
         <?php
+        session_start();
+        if(isset($post['string1']) && isset($post['string2']))
+        {
+            $string1 = "error";
+            $string2 = "something went wrong, make sure your email and username are from the same account";
+            modal($string1, $string2);
+        }
         require (dirname(__FILE__) . '/config/database.php');
         require (dirname(__FILE__) . '/functions/email.php');
         require (dirname(__FILE__) . '/functions/modal.php');
+        
         if(isset($_POST['email']) && isset($_POST['username']))
         {
             $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
             $username = filter_var($_POST['username'], FILTER_SANITIZE_SPECIAL_CHARS);
-            $body = "hi $username, click link to continue to password. <br>" . "http://" . $_SERVER['HTTP_HOST'] . str_replace("forgotpassword.php", "forgotchangepassword.php?username=" . $username, $_SERVER['REQUEST_URI']);
+            
             try
             {
-                $checkemail = $pdo->prepare("SELECT username FROM users WHERE email = :email");
+                $checkemail = $pdo->prepare("SELECT * FROM users WHERE email = :email");
                 $checkemail->bindParam(':email', $email);
                 $checkemail->execute();
                 $fetched = $checkemail->fetch();
 
+                $string = password_hash($fetched['email'] . $fetched['userid'], PASSWORD_DEFAULT);
+                $body = "hi $username, click link to continue to password. <br>" . "http://" . $_SERVER['HTTP_HOST'] . str_replace("forgotpassword.php", "forgotchangepassword.php", $_SERVER['REQUEST_URI']) . "?athing=" . $string . "&uid=" . $fetched['userid'] . "";
                 if(strncmp($fetched['username'], $username, strlen($username)) == 0)
                 {
                     if(sendemailfor($email, $username, $body))
@@ -47,9 +57,6 @@
                 echo $e->getMessage();
             }
         }
-        //send email to change passowrd
-        //generate new key
-        //
         ?>
         <?php
             $page = "forgotpassword";

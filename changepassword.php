@@ -4,25 +4,28 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,700i,800&display=swap" rel="stylesheet">
 </head>
 <?php
-
 session_start();
+if(!isset($_SESSION['uid']))
+{
+    header('Location: ' . str_replace("changepassword.php", "loggedout.php", $_SERVER['REQUEST_URI']));   
+}
     $page = "changepassword";
     require (dirname(__FILE__) . '/header.php');
     require (dirname(__FILE__) . '/functions/pswdval.php');
     require (dirname(__FILE__) . '/functions/pswdsub.php');
     require (dirname(__FILE__) . '/functions/modal.php');
     require (dirname(__FILE__) . '/config/database.php');
-if(isset($_SESSION['uid']))
-{
+
     $uid = $_SESSION['uid'];
         if(isset($_POST['password1']) && isset($_POST['password2']))
         {
-            $password1 = pswdsub($_POST['password1']);
-            $password2 = pswdsub($_POST['password2']);
+            
             if($_POST['password1'] == $_POST['password2'])
             {
-                if(pswdval($password1) && pswdval($password2))
+                if(pswdval($_POST['password1']) && pswdval($_POST['password2']))
                 {
+                    $password1 = pswdsub($_POST['password1']);
+                    $password2 = pswdsub($_POST['password2']);
                     try{
                         $updatepass = $pdo->prepare("UPDATE users set passwd = :passwd WHERE userid = :useid");
                         $updatepass->bindParam("useid", $uid);
@@ -71,11 +74,4 @@ if(isset($_SESSION['uid']))
             </div>
         </div>
     </body>
-    <?php
-}
-else
-{
-    header('Location: ' . str_replace("changepassword.php", "loggedout.php", $_SERVER['REQUEST_URI']));
-}
-?>
 </html>

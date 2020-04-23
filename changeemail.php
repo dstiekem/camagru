@@ -7,6 +7,11 @@
 <div style="width: 100%; position: static;">
     <?php
     session_start();
+    if(!isset($_SESSION['uid']))
+    {
+        header('Location: ' . str_replace("changeemail.php", "loggedout.php", $_SERVER['REQUEST_URI']));
+        
+    }
     $page = "changeemail";
     require (dirname(__FILE__) . '/header.php');
     require (dirname(__FILE__) . '/config/database.php');
@@ -15,8 +20,7 @@
     ?>
 </div>
 <?php
-if(isset($_SESSION['uid']))
-{
+
     if (isset($_POST['email1']) && isset($_POST['email2']))
     {
        $uid = $_SESSION['uid'];
@@ -43,11 +47,15 @@ if(isset($_SESSION['uid']))
                     else
                     {
                         $body = "please click this link to verify your new email address for " . $fetcheduser['username'];
-                        if(sendemail($enterednewemail, $fetcheduser, $body))
+                        if(sendemailcon($enterednewemail, $fetcheduser, $body))
                         {
                             $string1 = "success";
                             $string2 = 'Thank you email has been sent to ' . htmlentities($enterednewemail, ENT_QUOTES) . ". Click the link to confirm new address.";
                             modal($string1, $string2);
+                        }
+                        else
+                        {
+                            modal("error", "oops");
                         }
                     }
                 }
@@ -87,12 +95,5 @@ if(isset($_SESSION['uid']))
             </div>
         </div>
     </div>
-<?php
-}
-else
-{
-    header('Location: ' . str_replace("changeemail.php", "loggedout.php", $_SERVER['REQUEST_URI']));
-}
-?>
 </body>
 </html>

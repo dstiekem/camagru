@@ -35,23 +35,13 @@
                     $string1 = "error";
                     $string2 = "incorrect password. If you have signed up already check your email. If you have not signed up, sign up!";
                     modal($string1, $string2);
-                }
-                
-                    /*$fecthed = $checkuser->fetchAll();
-                    $checkpasswd = $fetched[5];
-                    var_dump($checkpassword);*/
-                    
+                }       
             }
             catch (PDOexception $e)
             {
-                //throw $th;
                 echo $e->getMessage();
             }
         }
-        /* else
-        {
-            echo "please enter username and password";
-        } */
         ?>
         <div class="box">
             <p class="title" id="login">please enter your username and password</p>
