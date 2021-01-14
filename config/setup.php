@@ -2,17 +2,24 @@
 include (dirname(__FILE__) . '/database.php');
 session_start();
 session_destroy();
-
-
-//$file = fopen("./database.sql", "r");
-
-//$stmt = fread($file,filesize("./database.sql"));
-
-//$thing = $pdo->prepare($stmt);
-//$thing->execute();
+/* try {
+    $pdo = new PDO($db_dsn , $db_user, $db_password);
+    echo "i come in peace\n";
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $pdo->query("USE camagru");
+} catch (PDOexception $e) {
+    //throw $th;
+    echo $e->getMessage();
+} */
 try{
-    $pdo->exec("DROP DATABASE IF EXISTS camagru;");
-    $pdo->exec("CREATE DATABASE IF NOT EXISTS camagru;");
+    $pdo = new PDO($db_dsn , $db_user, $db_password);
+    echo "i come in peace\n";
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $pdo->query("USE camagru");
+    //$pdo->exec("DROP DATABASE IF EXISTS camagru;");
+    //$pdo->exec("CREATE DATABASE IF NOT EXISTS camagru;");
 
     //$pdo->exec("DROP TABLE IF EXISTS `camagru`.`users`;");
     $pdo->exec("CREATE TABLE IF NOT EXISTS `camagru`.`users` (
@@ -67,32 +74,32 @@ try{
     );");
 
     $pdo->exec("INSERT INTO `camagru`.stickers (stickey, stickpath, stickname) VALUES
-        (01, 'http://localhost:8080/mvc2/stickers/1.png', 'hangerb'),
-        (02, 'http://localhost:8080/mvc2/stickers/g1699.png', 'washmachw'),
-        (04, 'http://localhost:8080/mvc2/stickers/g1708.png', 'washmachb'),
-        (05, 'http://localhost:8080/mvc2/stickers/g1779.png', 'greenshirtb'),
-        (06, 'http://localhost:8080/mvc2/stickers/g1783.png', 'orangeshirtb'),
-        (07, 'http://localhost:8080/mvc2/stickers/g1854.png', 'orangesparkw'),
-        (08, 'http://localhost:8080/mvc2/stickers/g1899.png', 'orangeshirtw'),
-        (09, 'http://localhost:8080/mvc2/stickers/g1903.png', 'greenshirtw'),
-        (10, 'http://localhost:8080/mvc2/stickers/g1908.png', 'coathangerw'),
-        (11, 'http://localhost:8080/mvc2/stickers/g1955-2-8.png', 'greenpoofw'),
-        (12, 'http://localhost:8080/mvc2/stickers/g1955-2.png', 'orangepoofw'),
-        (13, 'http://localhost:8080/mvc2/stickers/g1955.png', 'orangepoofb'),
-        (14, 'http://localhost:8080/mvc2/stickers/g2147.png', 'orangecrownw'),
-        (15, 'http://localhost:8080/mvc2/stickers/g2154.png', 'blackcrownog'),
-        (16, 'http://localhost:8080/mvc2/stickers/g2161.png', 'whitecrowng'),
-        (17, 'http://localhost:8080/mvc2/stickers/g3922.png', 'eyeballb'),
-        (18, 'http://localhost:8080/mvc2/stickers/g4035.png', 'footb'),
-        (19, 'http://localhost:8080/mvc2/stickers/g4108.png', 'footw'),
-        (20, 'http://localhost:8080/mvc2/stickers/g4243.png', 'handw'),
-        (21, 'http://localhost:8080/mvc2/stickers/g4252.png', 'handb'),
-        (22, 'http://localhost:8080/mvc2/stickers/g4258.png', 'greenfistw'),
-        (23, 'http://localhost:8080/mvc2/stickers/g4263.png', 'orangefistw'),
-        (24, 'http://localhost:8080/mvc2/stickers/g4268.png', 'orangefistb'),
-        (25, 'http://localhost:8080/mvc2/stickers/g4274.png', 'greenfistb'),
-        (26, 'http://localhost:8080/mvc2/stickers/g4416.png', 'greensparkb'),
-        (27, 'http://localhost:8080/mvc2/stickers/g4463.png', 'orangetearw');
+        (01, 'http://localhost:8080/camagru/stickers/1.png', 'hangerb'),
+        (02, 'http://localhost:8080/camagru/stickers/g1699.png', 'washmachw'),
+        (04, 'http://localhost:8080/camagru/stickers/g1708.png', 'washmachb'),
+        (05, 'http://localhost:8080/camagru/stickers/g1779.png', 'greenshirtb'),
+        (06, 'http://localhost:8080/camagru/stickers/g1783.png', 'orangeshirtb'),
+        (07, 'http://localhost:8080/camagru/stickers/g1854.png', 'orangesparkw'),
+        (08, 'http://localhost:8080/camagru/stickers/g1899.png', 'orangeshirtw'),
+        (09, 'http://localhost:8080/camagru/stickers/g1903.png', 'greenshirtw'),
+        (10, 'http://localhost:8080/camagru/stickers/g1908.png', 'coathangerw'),
+        (11, 'http://localhost:8080/camagru/stickers/g1955-2-8.png', 'greenpoofw'),
+        (12, 'http://localhost:8080/camagru/stickers/g1955-2.png', 'orangepoofw'),
+        (13, 'http://localhost:8080/camagru/stickers/g1955.png', 'orangepoofb'),
+        (14, 'http://localhost:8080/camagru/stickers/g2147.png', 'orangecrownw'),
+        (15, 'http://localhost:8080/camagru/stickers/g2154.png', 'blackcrownog'),
+        (16, 'http://localhost:8080/camagru/stickers/g2161.png', 'whitecrowng'),
+        (17, 'http://localhost:8080/camagru/stickers/g3922.png', 'eyeballb'),
+        (18, 'http://localhost:8080/camagru/stickers/g4035.png', 'footb'),
+        (19, 'http://localhost:8080/camagru/stickers/g4108.png', 'footw'),
+        (20, 'http://localhost:8080/camagru/stickers/g4243.png', 'handw'),
+        (21, 'http://localhost:8080/camagru/stickers/g4252.png', 'handb'),
+        (22, 'http://localhost:8080/camagru/stickers/g4258.png', 'greenfistw'),
+        (23, 'http://localhost:8080/camagru/stickers/g4263.png', 'orangefistw'),
+        (24, 'http://localhost:8080/camagru/stickers/g4268.png', 'orangefistb'),
+        (25, 'http://localhost:8080/camagru/stickers/g4274.png', 'greenfistb'),
+        (26, 'http://localhost:8080/camagru/stickers/g4416.png', 'greensparkb'),
+        (27, 'http://localhost:8080/camagru/stickers/g4463.png', 'orangetearw');
     ):");
 
     $pdo->exec("INSERT INTO `camagru`.assets (asskey, asspath, assname) VALUES
@@ -110,21 +117,21 @@ try{
     ):");
 
     $pdo->exec("INSERT INTO `camagru`.images (`user_id`, imagepath) VALUES
-        (00002, 'http://localhost:8080/mvc2/images/838a4811507903.560f8cf785d58.jpeg'),
-        (00003, 'http://localhost:8080/mvc2/images/679e0787804929.5dc31a3438525.jpg'),
-        (00001, 'http://localhost:8080/mvc2/images/7929b487816657.5dc36c0fb6e3d.jpg'), 
-        (00002, 'http://localhost:8080/mvc2/images/a893f411507903.560f8cc727176.jpeg'), 
-        (00002, 'http://localhost:8080/mvc2/images/15e3c811507903.560f8cd13e70c.jpeg'), 
-        (00001, 'http://localhost:8080/mvc2/images/166bbc87766383.5dc2255c5bf74.jpg'),
-        (00002, 'http://localhost:8080/mvc2/images/eqpbw0ccwhwNx0IS.png'),
-        (00003, 'http://localhost:8080/mvc2/images/IKouqECwL7JutMb.png'),
-        (00001, 'http://localhost:8080/mvc2/images/JnkoRZrdoZY3na.png'),
-        (00001, 'http://localhost:8080/mvc2/images/X0eJTQdkRVGkXpTf.png'),
-        (00003, 'http://localhost:8080/mvc2/images/YeuBWaQ2XnGYW3tt.png'),
-        (00002, 'http://localhost:8080/mvc2/images/C2SPJ4Ipga55ltuN.png'),
-        (00003, 'http://localhost:8080/mvc2/images/WXtVU452Z2XOMpnt.png'),
-        (00003, 'http://localhost:8080/mvc2/images/ZcccqIru0Ddq4t5X.png'),
-        (00002, 'http://localhost:8080/mvc2/images/lHLRU4dMlDjswY0e.png');
+        (00002, 'http://localhost:8080/camagru/images/838a4811507903.560f8cf785d58.jpeg'),
+        (00003, 'http://localhost:8080/camagru/images/679e0787804929.5dc31a3438525.jpg'),
+        (00001, 'http://localhost:8080/camagru/images/7929b487816657.5dc36c0fb6e3d.jpg'), 
+        (00002, 'http://localhost:8080/camagru/images/a893f411507903.560f8cc727176.jpeg'), 
+        (00002, 'http://localhost:8080/camagru/images/15e3c811507903.560f8cd13e70c.jpeg'), 
+        (00001, 'http://localhost:8080/camagru/images/166bbc87766383.5dc2255c5bf74.jpg'),
+        (00002, 'http://localhost:8080/camagru/images/eqpbw0ccwhwNx0IS.png'),
+        (00003, 'http://localhost:8080/camagru/images/IKouqECwL7JutMb.png'),
+        (00001, 'http://localhost:8080/camagru/images/JnkoRZrdoZY3na.png'),
+        (00001, 'http://localhost:8080/camagru/images/X0eJTQdkRVGkXpTf.png'),
+        (00003, 'http://localhost:8080/camagru/images/YeuBWaQ2XnGYW3tt.png'),
+        (00002, 'http://localhost:8080/camagru/images/C2SPJ4Ipga55ltuN.png'),
+        (00003, 'http://localhost:8080/camagru/images/WXtVU452Z2XOMpnt.png'),
+        (00003, 'http://localhost:8080/camagru/images/ZcccqIru0Ddq4t5X.png'),
+        (00002, 'http://localhost:8080/camagru/images/lHLRU4dMlDjswY0e.png');
     ):");
 
     $pdo->exec("INSERT INTO `camagru`.likes (`imageid`, `user_id`) VALUES
